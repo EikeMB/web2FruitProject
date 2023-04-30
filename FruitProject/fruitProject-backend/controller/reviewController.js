@@ -24,7 +24,7 @@ router.post("/reviews", createReview);
 async function createReview(request, response){
     body = request.body;
     try {
-        result = await model.addReview(body.title, body.content, body.rating);
+        result = await model.addReview(body.fruit,body.title, body.content, body.rating,body.user);
 
         responseString = "Review added: \n" + result.title + " " + result.content + " " + result.rating;
         logger.info(responseString);
@@ -135,7 +135,34 @@ async function getReviews(request, response){
     }
 }
 
+router.get("/reviews/fruits/:fruit", getFruitReviews);
+async function getFruitReviews(request, response){
+    fruit = request.params.fruit;
+    try {
+        result = await model.getAllFruitReviews(fruit);
+        responseString = "Reviews:\n";
+        result.forEach(review => {
+            responseString += "- " + review.title + " " + review.content + " " + review.rating + "\n";
+        });
+        logger.info(responseString);
+        response.status(200);
+        response.send(result)
+    } catch (error) {
+        logger.error(error.message);
+        if(error instanceof DatabaseError){
+            responseString = "Server issues while retrieving review.\n Sorry for the inconvenience";
+            response.status(500);
+            response.send(responseString);
+        }
+        else{
+            responseString = "A intern has messed up bad.\n Sorry for the inconvenience";
+            response.status(500);
+            response.send(responseString);
+        }
+        
 
+    }
+}
 
 /**
  * updates single review in database

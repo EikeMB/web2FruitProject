@@ -70,13 +70,13 @@ async function close(){
  * @throws {InvalidInputError} Thrown when user input is invalid.
  * @throws {DatabaseError} Thrown when error inserting into database occurs.
  */
-async function addReview(title, content, rating){
+async function addReview(fruit, title, content, rating, user){
     try {
         if(validateUtils.isValidReview(title, content, rating)){
             if(client.s.hasBeenClosed){
                 throw new DatabaseError("No connection to database");
             }
-            review = {title: title, content: content, rating: rating}
+            review = {fruit: fruit, title: title, content: content, rating: rating, user: user}
             try {
                 await reviewCollection.insertOne(review);
                 logger.info("Inserted review into database:\n" + review);
@@ -135,6 +135,20 @@ async function getSingleReview(title){
             throw new DatabaseError("Error getting review from database: " + error.message);
         }
         
+    }
+}
+
+async function getAllFruitReviews(fruit){
+    try {
+        if(client.s.hasBeenClosed){
+            throw new DatabaseError("No connection to database");
+        }
+        result = await reviewCollection.find({fruit: fruit});
+        logger.info("All reviews found");
+        return result.toArray();
+    } catch (error) {
+        logger.error(error);
+        throw new DatabaseError("Error retrieving all reviews from database: " + error.message)
     }
 }
 
@@ -232,4 +246,4 @@ async function deleteReview(title){
 }
 
 
-module.exports = {initialize, addReview, getSingleReview, getAllReviews, updateReview, deleteReview, close, getCollection};
+module.exports = {initialize, addReview, getSingleReview, getAllFruitReviews, getAllReviews, updateReview, deleteReview, close, getCollection};
