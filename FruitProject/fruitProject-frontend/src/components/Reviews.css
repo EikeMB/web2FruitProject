@@ -1,0 +1,13 @@
+.flex-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.fruitCard{
+    align-self: flex-start;
+}
+
+.reviewsList{
+    padding-left: 30%;
+    align-self: center;
+}
