@@ -1,0 +1,7 @@
+.Image_Box{
+    display: flex;
+    flex-direction: row;
+
+    flex-wrap: wrap;
+
+}
