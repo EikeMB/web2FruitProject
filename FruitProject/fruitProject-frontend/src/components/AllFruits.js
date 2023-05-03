@@ -13,7 +13,7 @@ function AllFruits(){
 
     useEffect(() =>{
         callGetFruit(setFruit, navigate)
-    }, [])
+    }, [fruits])
 
     return(
         <> 

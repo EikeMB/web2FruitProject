@@ -6,9 +6,14 @@
  import { DisplayFruit } from "./DisplayFruit";
  import "./ListFruits.css"
  import { useNavigate } from "react-router-dom";
+ import {DeletePokemon2} from "./DeleteFruit2";
+ import {useCookies} from "react-cookie";
+
  
  function ListFruits({fruits}){
      const navigate = useNavigate();
+     const [cookies, setCookie] = useCookies(["role"]);
+     
      return(
          <div>
              <ul>
@@ -18,6 +23,7 @@
                          <button onClick={() => {
                              navigate("/reviews/" + fruited.name)
                          }}>  <img src={fruited.image}/>  <p>{fruited.name}</p></button>   
+                         <DeletePokemon2 name={fruited.name}/>
                      </div>                                        
                  ))}
              </ul>
