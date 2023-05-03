@@ -48,5 +48,43 @@ function isValid2(name,vitamin,calories,details,image){
     throw new InvalidInputError("Invalid Input: Incorrect vitamin type");
 }
 
-module.exports = {isValid2};
+function isValidUser(password, role){
+    roles = ['admin', 'user']
+    format = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/
+    if(roles.includes(role)){
+        if(format.test(password)){
+            return true
+            
+        }
+        else{
+            throw new InvalidInputError("Error: Invalid password. Must contain a symbol")
+        }
+    }
+    else{
+        throw new InvalidInputError("Error: Invalid role. Must be admin or user")
+    }
+}
+
+function isValidReview(title, content, rating){
+    if(validator.isAscii(title)){
+        if(validator.isAscii(content)){
+            if(0 <= rating && rating <= 5){
+                return true;
+            }
+            else{
+                throw new InvalidInputError("Error: Invalid rating: " + rating);
+            }
+            
+        }
+        else{
+            throw new InvalidInputError("Error: Invalid content: " + content);
+        }
+        
+    }
+    else{
+        throw new InvalidInputError("Error: Invalid title: " + title);
+    }
+    
+}
+module.exports = {isValid2, isValidUser, isValidReview};
 

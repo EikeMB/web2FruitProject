@@ -15,7 +15,7 @@ const listEndpoints = require('express-list-endpoints');
 console.log(listEndpoints(app))
 
 // Make sure errorController is last!
-const controllers = ['homeController', 'fruitController', 'errorController'] 
+const controllers = ['homeController', 'fruitController', 'userController', 'reviewController', 'errorController'] 
 
 app.use(cors());
 app.use(express.json());
