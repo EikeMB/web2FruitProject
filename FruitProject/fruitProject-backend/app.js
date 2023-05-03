@@ -1,7 +1,9 @@
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const express = require('express');
+const cookieParser = require('cookie-parser');
 const app = express();
+app.use(cookieParser());
 
 const logger = require('./logger');
 const pinohttp = require('pino-http');
@@ -15,7 +17,7 @@ const listEndpoints = require('express-list-endpoints');
 console.log(listEndpoints(app))
 
 // Make sure errorController is last!
-const controllers = ['homeController', 'fruitController', 'userController', 'reviewController', 'errorController'] 
+const controllers = ['homeController', 'fruitController', 'userController', 'sessionController','reviewController', 'errorController'] 
 
 app.use(cors());
 app.use(express.json());
