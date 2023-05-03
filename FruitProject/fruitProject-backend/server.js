@@ -136,10 +136,20 @@
 require("dotenv").config();
 const app = require('./app.js');
 const port = 1339;
-const model = require("./models/fruitModelMongoDb");
-const url = process.env.URL_PRE + process.env.MONGODB_PWD + process.env.URL_POST;
+const fruitModel = require("./models/fruitModelMongoDb");
+const userModel = require("./models/userModel.js")
+const reviewModel = require("./models/reviewsModel.js")
+const url = process.env.URL_BEGIN + process.env.MONGODB_PWD + process.env.URL_END;
 
-model.initialize("Fruit_db", false, url,)
+fruitModel.initialize("Fruit_db", false, url,)
     .then(
-        app.listen(port) // Run the server
+        userModel.initialize("user_db", false, url)
+        .then(
+            reviewModel.initialize("review_db", false, url)
+            .then(
+                app.listen(port) // Run the server
+            )
+        )
+        
     );
+
