@@ -1,5 +1,8 @@
 import Main from "../components/Main";
-import { useSearchParams } from "react-router-dom";
+import { NameForm } from "../components/NameForm";
+import { useCookies } from "react-cookie";
+import { useLocation, useSearchParams } from "react-router-dom";
+import Alert from "react-bootstrap/Alert"
 
   /**
  * show all tool to interact with fruit database
@@ -7,12 +10,14 @@ import { useSearchParams } from "react-router-dom";
  */
 function Home() {
     const [searchParams, setSearchParams] = useSearchParams();
+    const [cookies, setCookie] = useCookies (["name"]); const {state } = useLocation();
 
   return (
-      <>
-      <h1>Hi {searchParams.get("name")}!</h1>
-      <Main />
-      </>
+    <>
+    {state && state.errorMessage && <Alert variant="danger">{state.errorMessage}</Alert>}
+    <h1>Hi {searchParams.get("name")}!</h1>
+    {cookies.name ? <Main /> : <NameForm />}
+    </>
       
   );
 }
