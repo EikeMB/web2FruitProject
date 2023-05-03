@@ -59,7 +59,7 @@ async function getUser(request, response) {
         if(error instanceof InvalidInputError){
             responseString = "No user found.\nInvalid input: please try again";
             response.status(400);
-            response.send(responseString);
+            response.send({errorMessage: responseString});
             
         }
         else if(error instanceof DatabaseError){
