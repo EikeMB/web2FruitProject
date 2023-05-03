@@ -10,9 +10,9 @@ function ListFruits({fruits}){
         <div>
             <ul>
                 {fruits.map((fruited) => (
-                    <li key = {fruited._id}>
-                         <DisplayFruit fruit={fruited} heading="The deleted Fruit:"/>                   
-                    </li>
+                  
+                    <DisplayFruit fruit={fruited} heading="The deleted Fruit:"/>                   
+                    
                 ))}
             </ul>
         </div>
