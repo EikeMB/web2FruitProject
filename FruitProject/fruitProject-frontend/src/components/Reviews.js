@@ -26,7 +26,7 @@ function Reviews(props){
     
     useEffect(() =>{
         getReviews();
-    },[])
+    },[reviews])
 
     return (
         <div className="flex-container"> 
