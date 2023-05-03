@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { ListFruits } from "./ListFruits"
 import { useNavigate } from "react-router-dom";
 
@@ -11,9 +11,12 @@ function AllFruits(){
     const navigate = useNavigate();
     const [fruits, setFruit] = useState([]);
 
+    useEffect(() =>{
+        callGetFruit(setFruit, navigate)
+    }, [])
+
     return(
-        <>
-        <button onClick={() => callGetFruit(setFruit, navigate)}> Get All Fruits</button>
+        <> 
         <ListFruits fruits={fruits} />
         </>
     );
@@ -22,7 +25,6 @@ function AllFruits(){
 async function callGetFruit(setFruit, nav) {
     const response = await fetch("http://localhost:1339/fruits", { method: "GET" });
     const result = await response.json();
-    setFruit(result);
 
     if(response.status === 400){
         nav("/Usererror", {state: {errorMessage: result.errorMessage}});
