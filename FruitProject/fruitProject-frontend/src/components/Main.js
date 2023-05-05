@@ -9,7 +9,7 @@ function Main(){
     return(
         <div>
             <p>Welcome to our Fruit App</p>
-            <SingleFruit/>
+            
             <AllFruits/>
         </div>
     );

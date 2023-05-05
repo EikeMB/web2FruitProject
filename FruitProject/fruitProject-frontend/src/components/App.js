@@ -8,6 +8,7 @@ import SystemError from "../pages/SystemError";
 import UserError from "../pages/UserError";
 import MainLayout from "../layouts/MainLayout";
 import Fruit from "../pages/Fruit";
+import Reviews from '../pages/Reviews';
 
 /**
  * create routes that allows to go to differents pages depending on the url passed
@@ -25,6 +26,7 @@ function App() {
         <Route path="SystemError" element={<SystemError/>}/>
         <Route path="Usererror" element={<UserError/>}/>
         <Route path="contact" element={<Contact/>}/>
+        <Route path="reviews/:fruitname" element={<Reviews/>}/>
        
       </Route>
       <Route path="*" element={<p>Invalid URL</p>} />
