@@ -76,6 +76,35 @@ async function getUser(request, response) {
     }
 }
 
+router.get("/users/:name", getUserFromSession);
+async function getUserFromSession(request, response) {
+    try {
+        user = await model.getSingleUserByName(request.params.name);
+        response.status(200);
+        response.send(user);
+    } catch (error) {
+        logger.error(error.message);
+        if(error instanceof InvalidInputError){
+            responseString = "No user found.\nInvalid input: please try again";
+            response.status(400);
+            response.send({errorMessage: responseString});
+            
+        }
+        else if(error instanceof DatabaseError){
+            responseString = "Server issues while retrieving user.\n Sorry for the inconvenience";
+            response.status(500);
+            response.send(responseString);
+            
+        }
+        else{
+            responseString = "A intern has messed up bad.\n Sorry for the inconvenience";
+            response.status(500);
+            response.send(responseString);
+        }
+    }
+}
+
+
 router.get("/users", getUsers);
 async function getUsers(request, response){
     try {

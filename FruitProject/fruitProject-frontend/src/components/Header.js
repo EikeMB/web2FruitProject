@@ -9,13 +9,13 @@ import { useEffect, useState } from "react"
  * @returns react components of nav buttons
  */
 function Header(){
-    const [cookies, setCookie] = useCookies (["sessionId"]);
+    const [cookies, setCookie] = useCookies (["name"]);
 
     const [user, setUser] = useState({});
 
     useEffect(() =>{
         callGetUser(setUser, cookies)
-    }, [])
+    })
 
 
     return(
@@ -23,7 +23,7 @@ function Header(){
             <div className="test">
                 
                 <NavButton to="/" label="Home"/>
-                {user.role == "Admin" && <NavButton to="/Fruit" label="Fruit"/>}
+                {user.role === "admin" && <NavButton to="/Fruit" label="Fruit"/>}
                 <NavButton to="/about" label="About Us"/>
                 <NavButton to="/contact" label="Contact Us"/>
             </div>
@@ -32,7 +32,7 @@ function Header(){
 }
 
 async function callGetUser(setUser,cookies) {
-    const response = await fetch("http://localhost:1339/user" + cookies.sessionId, { method: "GET" });
+    const response = await fetch("http://localhost:1339/users/" + cookies.name, { method: "GET" });
     const result = await response.json();
     setUser(result);
   }

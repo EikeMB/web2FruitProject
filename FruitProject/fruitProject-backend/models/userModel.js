@@ -92,6 +92,35 @@ async function addUser(username, password, role){
     }
 }
 
+async function getSingleUserByName(username){
+    try{
+    
+            if(client.s.hasBeenClosed){
+                throw new DatabaseError("No connection to the database")
+            }
+            result = await userCollection.findOne({username: username})
+            if(result == null){
+                logger.info(username + " user not found")
+                throw new InvalidInputError("No such user " + username)
+            }
+            logger.info(username + " user found")
+            return result
+        
+    } catch(error){
+        if(error instanceof InvalidInputError){
+            logger.error(error);
+            throw error;
+        }
+        else if(error instanceof DatabaseError){
+            throw error;
+        }
+        else{
+            logger.error(error);
+            throw error;
+        }
+    }
+}
+
 async function getSingleUser(username, password){
     try{
         if(validateUtils.isValidUser(password, "user")){
@@ -192,4 +221,4 @@ async function deleteUser(username, password){
     }
 }
 
-module.exports = {initialize, addUser, getSingleUser, getAllUsers, updateUser, deleteUser, close, getCollection}
+module.exports = {initialize, addUser, getSingleUser, getSingleUserByName,getAllUsers, updateUser, deleteUser, close, getCollection}
