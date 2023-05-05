@@ -12,8 +12,6 @@ function UserError(){
             <h1>There was an input error</h1>
             <p>{state.errorMessage}</p>
             <Link to="/">Home</Link>
-            <br/>
-            <Link to="/Fruit">Fruit</Link>
         </div>
     );
 }

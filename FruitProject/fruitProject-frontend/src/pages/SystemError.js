@@ -9,8 +9,6 @@ function SystemError({ errorMessage }){
             <h1>Oops! There was a system error</h1>
             <p>{errorMessage}</p>
             <Link to="/">Home</Link>
-            <br/>
-            <Link to="/Fruit">Fruit</Link>
 
         </div>
     );
