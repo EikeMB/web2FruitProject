@@ -20,7 +20,7 @@ import { useEffect, useState } from "react"
 
      useEffect(() =>{
         callGetUser(setUser, cookies)
-    })
+    },[])
      
      return(
          <div>
