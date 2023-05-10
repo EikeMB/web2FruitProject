@@ -27,7 +27,7 @@ function NameForm(){
     return(
         <form onSubmit={handleSubmit}>
             <input type="text" placeholder="Name..." ref={nameRef} required/>
-            <input type="text" placeholder="Password..." ref={passwordRef} required/>
+            <input type="password" placeholder="Password..." ref={passwordRef} required/>
             
             <button type="submit">Submit</button>
         </form>

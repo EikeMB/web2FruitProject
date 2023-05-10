@@ -11,6 +11,7 @@ import Alert from "react-bootstrap/Alert"
 function Home() {
     const [searchParams, setSearchParams] = useSearchParams();
     const [cookies, setCookie] = useCookies (["name"]); const {state } = useLocation();
+    
 
   return (
     <>
