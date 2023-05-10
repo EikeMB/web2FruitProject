@@ -15,7 +15,7 @@ function Header(){
 
     useEffect(() =>{
         callGetUser(setUser, cookies)
-    }, [])
+    }, [cookies])
 
 
     return(
