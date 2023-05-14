@@ -6,6 +6,7 @@ const router = express.Router();
 const routeRoot = '/';
 const model = require("../models/fruitModelMongoDb"); // add to use model
 const logger = require('../logger');
+const {authenticateUser} = require("./sessionController");
 
 /**
  * A controller that adds fruits to the database.
@@ -15,6 +16,11 @@ const logger = require('../logger');
 router.post("/fruits/", addFruitControl); // Define endpoint
  async function addFruitControl(request, response) {
   try{
+    const authenticatedSession = authenticateUser(request);
+    if(!authenticatedSession){
+        response.sendStatus(401);
+        return;
+    }
     let returnedFruit = await model.addFruit(request.body.fruitName,request.body.fruitVitamin,request.body.fruitCalories, request.body.fruitDetails, request.body.fruitImage);
     if(returnedFruit){
 
@@ -55,6 +61,11 @@ router.get("/fruits/:fruitName", findFruitControl); // Define endpoint
 async function findFruitControl(request, response) {
   let tempFruitName = request.params.fruitName
   try{
+    const authenticatedSession = authenticateUser(request);
+    if(!authenticatedSession){
+        response.sendStatus(401);
+        return;
+    }
    let returnedfruit = await model.getSingleFruit(tempFruitName);
    if(returnedfruit){
     logger.info("Successfully found the Fruit");
@@ -94,6 +105,11 @@ async function findFruitControl(request, response) {
 router.get("/fruits", findAllFruitControl); // Define endpoint
 async function findAllFruitControl(request, response) {
   try{
+    const authenticatedSession = authenticateUser(request);
+    if(!authenticatedSession){
+        response.sendStatus(401);
+        return;
+    }
     let fruitsList;
     let returnedfruit = await model.getAllFruits();
     
@@ -137,7 +153,11 @@ router.delete("/fruits/:fruitName", deleteFruitControl); // Define endpoint
 async function deleteFruitControl(request, response) {
   let tempFruitName = request.params.fruitName
   try{
-
+    const authenticatedSession = authenticateUser(request);
+    if(!authenticatedSession){
+        response.sendStatus(401);
+        return;
+    }
     let returnedFruit = await model.deleteFruit(tempFruitName);
      logger.info("Successfully deleted the Fruit");
      
@@ -171,6 +191,11 @@ async function deleteFruitControl(request, response) {
 router.put("/fruits", updateFruitControl); // Define endpoint
  async function updateFruitControl(request, response) {
   try{
+    const authenticatedSession = authenticateUser(request);
+    if(!authenticatedSession){
+        response.sendStatus(401);
+        return;
+    }
     let returnedFruit = await model.updateFruit(request.body.oldFruitName,request.body.newFruitName,request.body.fruitVitamin,request.body.fruitCalories,request.body.fruitDetails,request.body.fruitImage);
     if(returnedFruit){
 
