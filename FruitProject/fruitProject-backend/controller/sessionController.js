@@ -30,7 +30,8 @@ async function registerUser(request, response){
             const sessionId = createSession(username, 10);
 
         response.cookie("sessionId", sessionId, { expires: getSession(sessionId).expiresAt , httpsOnly: true });
-        response.redirect("/");
+        response.sendStatus(200);
+        return;
         }
 }
 
@@ -49,7 +50,8 @@ async function loginUser(request, response){
             const sessionId = createSession(username, 10);
 
         response.cookie("sessionId", sessionId, { expires: getSession(sessionId).expiresAt , httpsOnly: true });
-        response.redirect("/");
+        response.sendStatus(200);
+        return;
         }
 
     
@@ -104,7 +106,8 @@ function logoutUser(request, response){
     console.log("logged out user " + authenticatedSession.username);
 
     response.cookie("sessionId", "", {expires: new Date() , httpOnly: true})
-    response.redirect('/');
+    response.sendStatus(200);
+    return;
 }
 
 module.exports = {router, routeRoot, loginUser, authenticateUser, refreshSession};
