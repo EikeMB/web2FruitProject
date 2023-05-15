@@ -13,6 +13,8 @@ function NavButton(props){
         textDecoration: "none",
         display: "inline-block",
         fontSize: "16px",  
+        
+        
     };
 
     const activeButtonStyle = {
