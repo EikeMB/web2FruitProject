@@ -7,9 +7,7 @@ import { AllFruits } from "./AllFruits";
  */
 function Main(){
     return(
-        <div>
-            <p>Welcome to our Fruit App</p>
-            
+        <div>            
             <AllFruits/>
         </div>
     );

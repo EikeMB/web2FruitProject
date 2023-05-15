@@ -10,8 +10,8 @@ function SingleFruit(){
 
     return(
         <>
-        <SingleFruitForm setFind =  {setFind}/>
         <DisplayFruit fruit={find} heading="Find Fruit"/>
+        <SingleFruitForm setFind =  {setFind}/>
         
         </>
     );

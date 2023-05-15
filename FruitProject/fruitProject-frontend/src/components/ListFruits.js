@@ -23,8 +23,8 @@ import { useEffect, useState } from "react"
     },[])
      
      return(
-         <div>
-             <ul>
+         <div className="Image_Box_Parent">
+             <ul className="list_yes">
                  {fruits.map((fruited) => (                
                      
                      <div className="Image_Box">
