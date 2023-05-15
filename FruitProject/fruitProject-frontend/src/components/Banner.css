@@ -1,14 +1,15 @@
 
 .banner-image {
-  background-image: linear-gradient(rgba(157, 126, 126, 0.5), rgba(63, 8, 8, 0.5)), url("../../public/images/banner.png");
+  background-image: linear-gradient(rgba(223, 182, 69, 0.356), rgba(238, 167, 167, 0.486)), url("../../public/images/banner.png");
   height: 50%;
   background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  background-repeat: repeat;
   position: relative;
-  padding: 80px;
+  padding: 70px;
 }
 
 .banner-text {
-  color: white;
+  font-family: Brush Script MT;
+  color: rgb(82, 55, 14);
+  font-size: 30px;
 }

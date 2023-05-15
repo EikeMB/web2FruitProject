@@ -30,7 +30,7 @@ import { useEffect, useState } from "react"
                      <div className="Image_Box">
                          <button onClick={() => {
                              navigate("/reviews/" + fruited.name)
-                         }}class="button-style">  <img src={fruited.image } class="card-img" alt="card-img"/>  <p>{fruited.name}</p></button>   
+                         }}class="button-style">  <img src={fruited.image } class="card-img" alt="card-img"/>  <p className="button-text">{fruited.name}</p></button>   
                          {user.role === "admin" && <DeletePokemon2 name={fruited.name}/>}
                      </div>                                        
                  ))}
