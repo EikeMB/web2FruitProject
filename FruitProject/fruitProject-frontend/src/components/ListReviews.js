@@ -24,6 +24,10 @@ function ListReviews({reviews}){
         }
     }
 
+    const handleUpdate = async (review) => {
+        
+    }
+
     return (
         <div>
             <h1>All Reviews</h1>
