@@ -3,7 +3,7 @@
     box-shadow: 0 4px 8px 0;
     border-radius: 5px;
     max-width: 300px;
-    background-color: grey;
+    background-color: rgb(93, 117, 37);
     padding: 2px 16px;
     display: flex;
     flex-direction: column;
