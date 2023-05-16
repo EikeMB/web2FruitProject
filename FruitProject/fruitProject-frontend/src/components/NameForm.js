@@ -1,7 +1,7 @@
 import {useContext, useRef} from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
-import { LoggedInContext } from "./App";
+import { LoggedInContext , usernameInContext} from "./App";
 
 function NameForm(){
     const nameRef = useRef(null);
@@ -10,6 +10,7 @@ function NameForm(){
     const navigate = useNavigate();
     const [cookies, setCookie] = useCookies (["name"]);
     const [ isLoggedIn, setIsLoggedIn] = useContext(LoggedInContext);
+    const [username, setUsername] = useContext(usernameInContext);
 
     const handleSubmit = async (event) =>{
         event.preventDefault();
@@ -30,7 +31,7 @@ function NameForm(){
         if(response.status === 200){
             alert("thanks for login in");
             setIsLoggedIn(true);
-            setCookie(nameRef);
+            setUsername(nameRef);
             navigate("/");
         } else {
             setIsLoggedIn(false);

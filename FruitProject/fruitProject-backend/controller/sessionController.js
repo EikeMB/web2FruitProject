@@ -35,6 +35,21 @@ async function registerUser(request, response){
         }
 }
 
+router.get('/auth', authUser);
+async function authUser(request, resopnse){
+    try {
+        const authenticatedSession = authenticateUser(request);
+        if(!authenticatedSession){
+            response.sendStatus(401);
+        }
+        else{
+            response.sendStatus(200)
+        }
+    } catch (error) {
+        response.sendStatus(401);
+    }
+}
+
 router.post('/login', loginUser);
 async function loginUser(request, response){
     const username = request.body.username;

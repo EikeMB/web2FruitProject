@@ -9,11 +9,16 @@ import UserError from "../pages/UserError";
 import MainLayout from "../layouts/MainLayout";
 import Fruit from "../pages/Fruit";
 import Reviews from '../pages/Reviews';
-import createContext from 'react';
+import createContext, { useEffect } from 'react';
 
 const LoggedInContext = createContext({
   isLoggedIn: false,
   setIsLoggedIn: () => {},
+});
+
+const usernameInContext = createContext({
+  username: "",
+  setUsername: () => {},
 });
 
 /**
@@ -21,6 +26,23 @@ const LoggedInContext = createContext({
  * @returns routes to many differents pages
  */
 function App() {
+useEffect(() => {
+  async function checkForLoggedIn(){
+    try {
+      const response = await fetch("http://localhost/1339/session/auth", {method: "GET", credentials: "include"})
+      if(response.status === 200){
+        setIsLoggedIn(true);  
+      }
+      else{
+        setIsLoggedIn(false);
+      }
+    } catch (error) {
+      setIsLoggedIn(false);
+    }
+  }
+  checkForLoggedIn();
+}, [])
+
   return (
     <div className="App">
       <LoggedInContext.Provider value={LoggedInValueAndSetter}>
@@ -44,4 +66,4 @@ function App() {
 }
 
 export default App;
-export {LoggedInContext};
+export {LoggedInContext, usernameInContext};
