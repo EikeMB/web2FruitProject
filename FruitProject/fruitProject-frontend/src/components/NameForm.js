@@ -1,6 +1,7 @@
 import {useRef} from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
+import "./NameForm.css"
 
 function NameForm(){
     const nameRef = useRef(null);
@@ -26,10 +27,10 @@ function NameForm(){
     };
     return(
         <form onSubmit={handleSubmit}>
-            <input type="text" placeholder="Name..." ref={nameRef} required/>
-            <input type="password" placeholder="Password..." ref={passwordRef} required/>
+            <input className="form-group" type="text" placeholder="Name..." ref={nameRef} required/>
+            <input  className="form-group" type="password" placeholder="Password..." ref={passwordRef} required/>
             
-            <button type="submit">Submit</button>
+            <button className="login-btn" type="submit"><span>Login</span></button>
         </form>
     );
 }

@@ -1,27 +1,9 @@
 .Image_Box{
-    /* display: flex;
-    flex-direction: row; */
-
-    /* flex-wrap: wrap; */
 
     flex-basis: 25%;
     margin-bottom: 50px;
 }
 
-/* .Image_Box_Parent{
-    display: flex;
-    flex-direction: row;
-
-    flex-wrap: wrap;
-
-
-} */
-
-/* .list_yes{
-
-    
-
-} */
 
 ul {
     display: flex;
@@ -51,9 +33,9 @@ ul {
     padding: 0px;
     width: 50%;
     height: 100%;
-    background-color: rgb(245, 181, 152);
+    background-color: rgba(245, 181, 152, 0.701);
 
-    border: 3px solid black;
+    border: 5px solid rgb(138, 40, 8);
 }
 
 .button-style:hover {
@@ -74,11 +56,11 @@ ul {
     writing-mode: vertical-rl;
     text-orientation: mixed;
     height: 75%;
-    background-color: rgb(245, 181, 152);
+    background-color: rgb(243, 137, 105);
     font-family: fantasy;
     font-size: 10px;
     color: rgba(61, 47, 9, 0.959);
-    border: 2px solid black;
+    border: 2px solid rgb(138, 40, 8);
 
 }
 

@@ -15,6 +15,7 @@ function NavButton(props){
         fontSize: "16px",  
         
         
+        
     };
 
     const activeButtonStyle = {

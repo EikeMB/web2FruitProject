@@ -11,7 +11,11 @@ function About() {
     <div>
       <h1>Yensan and Eike are the co founder of this website.</h1> 
       {employee === "Yensan" && <h2>Yensan is Coconut enjoyer</h2>}
-      {employee === "Eike" && <h2>Eike is a avocado enjoyer</h2>}
+      {employee === "Eike" && <h2>Eike is Avocado enjoyer</h2>}
+      <p>
+        
+      </p>
+
     </div>
   );
 }
