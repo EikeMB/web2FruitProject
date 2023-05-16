@@ -1,7 +1,10 @@
 import NavButton from "./NavButton";
 import './Header.css';
 import { useCookies } from "react-cookie";
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react";
+import { LoggedInContext } from "./App";
+import { Nav } from "react-bootstrap";
+import LogoutButton from "./LogoutButton";
 
 
 /**
@@ -12,6 +15,7 @@ function Header(){
     const [cookies, setCookie] = useCookies (["name"]);
 
     const [user, setUser] = useState({});
+    const [isLoggedIn, setIsLoggedIn] = useContext(LoggedInContext);
 
     useEffect(() =>{
         callGetUser(setUser, cookies)
@@ -26,6 +30,7 @@ function Header(){
                 {user.role === "admin" && <NavButton to="/Fruit" label="Fruit"/>}
                 <NavButton to="/about" label="About Us"/>
                 <NavButton to="/contact" label="Contact Us"/>
+                {isLoggedIn && <LogoutButton />}
             </div>
         </div>
     );   

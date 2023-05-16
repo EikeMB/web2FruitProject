@@ -9,6 +9,12 @@ import UserError from "../pages/UserError";
 import MainLayout from "../layouts/MainLayout";
 import Fruit from "../pages/Fruit";
 import Reviews from '../pages/Reviews';
+import createContext from 'react';
+
+const LoggedInContext = createContext({
+  isLoggedIn: false,
+  setIsLoggedIn: () => {},
+});
 
 /**
  * create routes that allows to go to differents pages depending on the url passed
@@ -17,6 +23,7 @@ import Reviews from '../pages/Reviews';
 function App() {
   return (
     <div className="App">
+      <LoggedInContext.Provider value={LoggedInValueAndSetter}>
       <Routes>
         <Route path="/" element={<MainLayout />} >
         <Route index element={<Home/>}/>
@@ -28,12 +35,13 @@ function App() {
         <Route path="contact" element={<Contact/>}/>
         <Route path="reviews/:fruitname" element={<Reviews/>}/>
        
-      </Route>
-      <Route path="*" element={<p>Invalid URL</p>} />
+        </Route>
+        <Route path="*" element={<p>Invalid URL</p>} />
       </Routes>
-
+      </LoggedInContext.Provider>
     </div>
   );
 }
 
 export default App;
+export {LoggedInContext};
