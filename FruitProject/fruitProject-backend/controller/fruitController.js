@@ -61,11 +61,7 @@ router.get("/fruits/:fruitName", findFruitControl); // Define endpoint
 async function findFruitControl(request, response) {
   let tempFruitName = request.params.fruitName
   try{
-    const authenticatedSession = authenticateUser(request);
-    if(!authenticatedSession){
-        response.sendStatus(401);
-        return;
-    }
+    
    let returnedfruit = await model.getSingleFruit(tempFruitName);
    if(returnedfruit){
     logger.info("Successfully found the Fruit");

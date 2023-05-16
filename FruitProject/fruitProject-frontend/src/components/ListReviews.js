@@ -15,7 +15,7 @@ function ListReviews({reviews}){
     const navigate = useNavigate();
     const handleDelete = async (review) => {
         
-        const response = await fetch("http://localhost:1339/reviews/" + review.title, {method: "DELETE"})
+        const response = await fetch("http://localhost:1339/reviews/" + review.title, {method: "DELETE", credentials: "same-origin"})
         const result = await response.json();
         if(response.status === 400){
             navigate("/Usererror", {state: {errorMessage: result.errorMessage}});

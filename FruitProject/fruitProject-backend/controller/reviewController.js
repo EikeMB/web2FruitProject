@@ -155,11 +155,7 @@ router.get("/reviews/fruits/:fruit", getFruitReviews);
 async function getFruitReviews(request, response){
     fruit = request.params.fruit;
     try {
-        const authenticatedSession = authenticateUser(request);
-        if(!authenticatedSession){
-        response.sendStatus(401);
-        return;
-        }
+        
         result = await model.getAllFruitReviews(fruit);
         responseString = "Reviews:\n";
         result.forEach(review => {
@@ -245,11 +241,7 @@ router.delete("/reviews/:title", deleteReview);
 async function deleteReview(request, response){
     reviewTitle = request.params.title;
     try {
-        const authenticatedSession = authenticateUser(request);
-        if(!authenticatedSession){
-        response.sendStatus(401);
-        return;
-        }
+        
         result = await model.deleteReview(reviewTitle);
         response.status(200);
         responseString = "Review: " + reviewTitle + " deleted";

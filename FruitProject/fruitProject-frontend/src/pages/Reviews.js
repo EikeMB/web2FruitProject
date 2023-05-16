@@ -11,7 +11,7 @@ function Reviews(){
     const navigate = useNavigate();
 
     async function getReviews(){
-        const response = await fetch("http://localhost:1339/reviews/fruits/" + fruitname ,{method: "GET"})
+        const response = await fetch("http://localhost:1339/reviews/fruits/" + fruitname.toLocaleLowerCase() ,{method: "GET", credentials: "same-origin"})
         
         const result = await response.json();
 
@@ -43,7 +43,7 @@ function Reviews(){
     
     useEffect(() =>{
         getReviews();
-    }, []);
+    });
 
     return (
         <div className="flex-container"> 
