@@ -105,11 +105,7 @@ async function findFruitControl(request, response) {
 router.get("/fruits", findAllFruitControl); // Define endpoint
 async function findAllFruitControl(request, response) {
   try{
-    const authenticatedSession = authenticateUser(request);
-    if(!authenticatedSession){
-        response.sendStatus(401);
-        return;
-    }
+    
     let fruitsList;
     let returnedfruit = await model.getAllFruits();
     

@@ -1,10 +1,9 @@
 import NavButton from "./NavButton";
 import './Header.css';
-import { useCookies } from "react-cookie";
 import { useContext, useEffect, useState } from "react";
 import { LoggedInContext, usernameInContext } from "./App";
-import { Nav } from "react-bootstrap";
 import LogoutButton from "./LogoutButton";
+import { useCookies } from "react-cookie";
 
 
 
@@ -14,13 +13,13 @@ import LogoutButton from "./LogoutButton";
  */
 function Header(){
 
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState({});
+    const [cookies, setCookie] = useCookies(["name"])
     const [isLoggedIn, setIsLoggedIn] = useContext(LoggedInContext);
-    const [username, setUsername] = useContext(usernameInContext);
 
     useEffect(() =>{
-        callGetUser(setUser, username)
-    }, [username])
+        callGetUser(setUser, cookies.name)
+    })
 
 
     return(

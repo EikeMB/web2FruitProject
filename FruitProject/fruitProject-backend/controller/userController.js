@@ -55,11 +55,7 @@ async function getUser(request, response) {
     username = request.params.username
     password = request.params.password
     try {
-        const authenticatedSession = authenticateUser(request);
-        if(!authenticatedSession){
-        response.sendStatus(401);
-        return;
-        }
+        
         result = await model.getSingleUser(username, password);
         responseString = "User found: " + result.username + " " + result.password;
         logger.info(responseString);
@@ -90,11 +86,7 @@ async function getUser(request, response) {
 router.get("/users/:name", getUserFromSession);
 async function getUserFromSession(request, response) {
     try {
-        const authenticatedSession = authenticateUser(request);
-        if(!authenticatedSession){
-        response.sendStatus(401);
-        return;
-        }
+        
         user = await model.getSingleUserByName(request.params.name);
         response.status(200);
         response.send(user);
@@ -124,11 +116,7 @@ async function getUserFromSession(request, response) {
 router.get("/users", getUsers);
 async function getUsers(request, response){
     try {
-        const authenticatedSession = authenticateUser(request);
-        if(!authenticatedSession){
-        response.sendStatus(401);
-        return;
-        }
+        
         result = await model.getAllUsers();
         response.status(200)
         response.send(result)

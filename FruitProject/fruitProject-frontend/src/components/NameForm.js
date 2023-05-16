@@ -9,29 +9,28 @@ function NameForm(){
 
     const navigate = useNavigate();
     const [cookies, setCookie] = useCookies (["name"]);
-    const [ isLoggedIn, setIsLoggedIn] = useContext(LoggedInContext);
-    const [username, setUsername] = useContext(usernameInContext);
+    const [isLoggedIn, setIsLoggedIn] = useContext(LoggedInContext)
 
     const handleSubmit = async (event) =>{
         event.preventDefault();
+        
 
-        const requestOptions = {
-            method: "POST",
-            credentials: "include",
-            body: JSON.stringify({
-                username: nameRef,
-                password: passwordRef
-            }),
-            headers: {
-                "Content-type": "application/json; charset-UTF-8",
-            },
-        };
-        const response = await fetch("http://localhost:1339/session/login", requestOptions);
+        const response = await fetch("http://localhost:1339/session/login", {
+        method: "POST",
+        credentials: "include",
+        body: JSON.stringify({
+            username: nameRef.current.value,
+            password: passwordRef.current.value,
+        }),
+        headers: {
+            "Content-Type": "application/json"
+        },
+    });
         
         if(response.status === 200){
             alert("thanks for login in");
             setIsLoggedIn(true);
-            setUsername(nameRef);
+            setCookie("name", nameRef.current.value);
             navigate("/");
         } else {
             setIsLoggedIn(false);

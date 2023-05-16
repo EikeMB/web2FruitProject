@@ -49,7 +49,7 @@ useEffect(() => {
 
   return (
     <div className="App">
-      <LoggedInContext.Provider value={{LoggedInValueAndSetter, UsernameInValueAndSetter}}>
+      <LoggedInContext.Provider value={LoggedInValueAndSetter}>
       <Routes>
         <Route path="/" element={<MainLayout />} >
         <Route index element={<Home/>}/>

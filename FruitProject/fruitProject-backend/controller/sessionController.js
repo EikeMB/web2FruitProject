@@ -52,10 +52,9 @@ async function authUser(request, resopnse){
 
 router.post('/login', loginUser);
 async function loginUser(request, response){
-    const username = request.body.username;
-    const password = request.body.password;
-
-        responseUser = await fetch("http://localhost:1339/users/" + username + "/" + password)
+    body = request.body;
+        url = "http://localhost:1339/users/" + body.username + "/" + body.password;
+        responseUser = await fetch(url, {method: "GET"})
         result = await responseUser.json();
 
         if(responseUser.status != 200){

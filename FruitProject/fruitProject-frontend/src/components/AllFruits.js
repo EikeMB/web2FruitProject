@@ -13,7 +13,7 @@ function AllFruits(){
 
     useEffect(() =>{
         callGetFruit(setFruit, navigate)
-    }, [fruits])
+    }, [])
 
     return(
         <> 
@@ -23,7 +23,7 @@ function AllFruits(){
 }
 
 async function callGetFruit(setFruit, nav) {
-    const response = await fetch("http://localhost:1339/fruits", { method: "GET" });
+    const response = await fetch("http://localhost:1339/fruits", { method: "GET", credentials: 'same-origin' });
     const result = await response.json();
 
     if(response.status === 400){
