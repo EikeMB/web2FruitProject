@@ -7,13 +7,14 @@ import { Nav } from "react-bootstrap";
 import LogoutButton from "./LogoutButton";
 
 
+
 /**
  * organize the navigation buttons
  * @returns react components of nav buttons
  */
 function Header(){
 
-    const [user, setUser] = useSate([]);
+    const [user, setUser] = useState(null);
     const [isLoggedIn, setIsLoggedIn] = useContext(LoggedInContext);
     const [username, setUsername] = useContext(usernameInContext);
 

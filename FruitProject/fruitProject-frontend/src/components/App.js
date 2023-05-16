@@ -9,7 +9,7 @@ import UserError from "../pages/UserError";
 import MainLayout from "../layouts/MainLayout";
 import Fruit from "../pages/Fruit";
 import Reviews from '../pages/Reviews';
-import createContext, { useEffect } from 'react';
+import {createContext, useContext, useEffect, useState } from 'react';
 
 const LoggedInContext = createContext({
   isLoggedIn: false,
@@ -26,6 +26,10 @@ const usernameInContext = createContext({
  * @returns routes to many differents pages
  */
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [username, setUsername] = useState("");
+  const UsernameInValueAndSetter = [username, setUsername];
+  const LoggedInValueAndSetter = [isLoggedIn, setIsLoggedIn];
 useEffect(() => {
   async function checkForLoggedIn(){
     try {
@@ -45,7 +49,7 @@ useEffect(() => {
 
   return (
     <div className="App">
-      <LoggedInContext.Provider value={LoggedInValueAndSetter}>
+      <LoggedInContext.Provider value={{LoggedInValueAndSetter, UsernameInValueAndSetter}}>
       <Routes>
         <Route path="/" element={<MainLayout />} >
         <Route index element={<Home/>}/>
