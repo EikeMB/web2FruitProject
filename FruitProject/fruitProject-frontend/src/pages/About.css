@@ -10,6 +10,7 @@
     display: flex;
     margin-left: 150px;
     margin-right: 150px;
+    margin-bottom: 100px;
 }
 
 .about_firstSection{
@@ -28,3 +29,11 @@
 .about_body img{
     border-radius: 50px;
 }
+
+.img2 {
+    background-image: url("../../public/images/About_image_2.jpg");
+    background-repeat: no-repeat;
+    background-size: 700px 600px;
+    object-fit: fill;
+
+  }
