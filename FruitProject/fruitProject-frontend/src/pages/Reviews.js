@@ -3,8 +3,10 @@ import {useState, useEffect} from "react";
 import {useNavigate, useParams} from "react-router-dom"
 import ListReviews from "../components/ListReviews";
 import "./Reviews.css"
+import { Cookies, useCookies } from "react-cookie";
 
 function Reviews(){
+    const [cookies, setCookie] = useCookies("name");
     const {fruitname} = useParams();
     const [reviews, setReviews] = useState([])
     const [fruit, setFruit] = useState([]);
@@ -51,7 +53,7 @@ function Reviews(){
                 <DisplayFruit fruit={fruit} heading="Fruit"/>
             </div>
             <div className="reviewsList">
-                <ListReviews reviews={reviews} />
+                <ListReviews reviews={reviews} fruit={fruitname} />
             </div>
         </div>
     )

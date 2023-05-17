@@ -25,11 +25,7 @@ router.post("/reviews", createReview);
 async function createReview(request, response){
     body = request.body;
     try {
-        const authenticatedSession = authenticateUser(request);
-        if(!authenticatedSession){
-        response.sendStatus(401);
-        return;
-        }
+        
         result = await model.addReview(body.fruit,body.title, body.content, body.rating,body.user);
 
         responseString = "Review added: \n" + result.title + " " + result.content + " " + result.rating;
@@ -74,11 +70,7 @@ router.get("/reviews/:title", getReview);
 async function getReview(request, response){
     reviewTitle = request.params.title;
     try {
-        const authenticatedSession = authenticateUser(request);
-        if(!authenticatedSession){
-        response.sendStatus(401);
-        return;
-        }
+        
         result = await model.getSingleReview(reviewTitle);
         responseString = "Review found: " + result.title + " " + result.content + " " + result.rating;
         logger.info(responseString);
@@ -194,11 +186,7 @@ async function getFruitReviews(request, response){
 async function updateReview(request, response){
     body = request.body;
     try {
-        const authenticatedSession = authenticateUser(request);
-        if(!authenticatedSession){
-        response.sendStatus(401);
-        return;
-        }
+        
         result = await model.updateReview(body.oldTitle, body.oldContent, body.oldRating, body.newTitle, body.newContent, body.newRating);
         responseString = "Review: " + " " + body.oldTitle + " " + body.oldContent + " " + body.oldRating + " updated to\n" +
         body.newTitle + " " + body.newContent + " " + body.newRating;

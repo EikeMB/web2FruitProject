@@ -10,6 +10,7 @@ import MainLayout from "../layouts/MainLayout";
 import Fruit from "../pages/Fruit";
 import Reviews from '../pages/Reviews';
 import {createContext, useContext, useEffect, useState } from 'react';
+import UpdateReview from '../pages/UpdateReview';
 
 const LoggedInContext = createContext({
   isLoggedIn: false,
@@ -60,6 +61,7 @@ useEffect(() => {
         <Route path="Usererror" element={<UserError/>}/>
         <Route path="contact" element={<Contact/>}/>
         <Route path="reviews/:fruitname" element={<Reviews/>}/>
+        <Route path="updateReview/:reviewTitle" element={<UpdateReview/>}/>
        
         </Route>
         <Route path="*" element={<p>Invalid URL</p>} />
