@@ -8,14 +8,25 @@ function About() {
   const { employee } = useParams();
 
   return (
-    <div>
-      <h1>Yensan and Eike are the co founder of this website.</h1> 
-      {employee === "Yensan" && <h2>Yensan is Coconut enjoyer</h2>}
-      {employee === "Eike" && <h2>Eike is Avocado enjoyer</h2>}
-      <p>
-        
-      </p>
+    <div className="about_body">
+      <h1 className="Title"> About us </h1>
+      <div className="about_container">
+        <div className="about_firstSection">
+          <h1>
+          <br/>
+            Who are we?</h1>
+          <p>
+          Welcome to the Objectively Best Fruit Tier List! We are a passionate team of fruit enthusiasts 
+          dedicated to providing you with comprehensive reviews and rankings of various fruits. 
+          Our mission is simple: to help you discover and appreciate the finest fruits available,
+           while offering insightful information to enhance your fruit-eating experience. t
+          </p>
+        </div>  
+        <div className="about_firstSection">
+        <img src="https://d.ibtimes.co.uk/en/full/337219/eat-yourself-happier.jpg" alt="Girl in a jacket" width="500" height="600"/>
 
+        </div>
+      </div>
     </div>
   );
 }
