@@ -1,4 +1,5 @@
 import { useParams } from "react-router-dom";
+import "./About.css"
 
 /**
  * Display information about co founder of website
