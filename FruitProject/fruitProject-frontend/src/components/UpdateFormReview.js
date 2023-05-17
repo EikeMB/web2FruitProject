@@ -42,7 +42,7 @@ function UpdateFormReview(props){
             navigate("/", {state: {errorMessage: result.errorMessage}})
         }
         else{
-            navigate("/"+review.fruit);
+            navigate("/reviews/"+review.fruit);
         }
     }
 

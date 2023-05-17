@@ -1,15 +1,18 @@
 import { useState } from "react";
 import { useParams , useNavigate} from "react-router-dom";
 import UpdateFormReview from "../components/UpdateFormReview";
+import { useEffect } from "react";
 
-async function UpdateReview(){
-    const navigate = useNavigate();
+function UpdateReview(){
+    
     const {reviewTitle} = useParams()
     const [review, setReview] = useState([]);
+    const navigate = useNavigate();
 
-    const reviewResponse = await fetch("http://localhost:1339/reviews/"+reviewTitle, {method: "GET"})
+    async function handleUpdate(){
+        const reviewResponse = await fetch("http://localhost:1339/reviews/"+reviewTitle, {method: "GET"})
 
-    const result = await reviewResponse.json();
+        const result = await reviewResponse.json();
 
     if(reviewResponse.status === 400){
         navigate("/Usererror", {state: {errorMessage: result.errorMessage}});
@@ -18,8 +21,14 @@ async function UpdateReview(){
     }else{
         setReview(result);
     } 
+    }
+    useEffect( () =>{
+        handleUpdate();
+    }, [reviewTitle]);
 
-    <UpdateFormReview review={review}/>
+    return(
+        <UpdateFormReview review={review}/>
+    )
 
 }
 
