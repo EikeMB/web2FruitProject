@@ -1,0 +1,30 @@
+.about_body{
+
+}
+.Title{
+    font-size: 100px;
+    margin-bottom: 100px;
+}
+
+.about_container{
+    display: flex;
+    margin-left: 150px;
+    margin-right: 150px;
+}
+
+.about_firstSection{
+    flex: 50%;
+}
+
+.about_body p{
+    font-size: 30px;
+    line-height: 50px;
+}
+
+.about_body h1{
+    font-size: 50px;
+}
+
+.about_body img{
+    border-radius: 50px;
+}
