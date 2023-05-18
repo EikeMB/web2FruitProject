@@ -12,8 +12,9 @@ function Reviews(){
     const [fruit, setFruit] = useState([]);
     const navigate = useNavigate();
 
+   
     async function getReviews(){
-        const response = await fetch("http://localhost:1339/reviews/fruits/" + fruitname.toLocaleLowerCase() ,{method: "GET", credentials: "same-origin"})
+        const response = await fetch("http://localhost:1339/reviews/fruits/" + fruitname.toLocaleLowerCase() ,{method: "GET", credentials: "include"})
         
         const result = await response.json();
 
@@ -27,7 +28,7 @@ function Reviews(){
             setReviews(result)
         }
 
-        const response2 = await fetch("http://localhost:1339/fruits/" + fruitname, {method: "GET"}) ;
+        const response2 = await fetch("http://localhost:1339/fruits/" + fruitname, {method: "GET", credentials: "include"}) ;
 
         const result2 = await response2.json();
 

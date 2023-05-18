@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 /**
@@ -7,6 +8,7 @@ import { useParams } from "react-router-dom";
 function About() {
   const { employee } = useParams();
 
+  
   return (
     <div>
       <h1>Yensan and Eike are the co founder of this website.</h1> 

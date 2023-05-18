@@ -40,15 +40,10 @@ import { useEffect, useState } from "react"
  }
  
  async function callGetUser(setUser,cookies) {
-    const response = await fetch("http://localhost:1339/users/" + cookies.name, { method: "GET" });
+    const response = await fetch("http://localhost:1339/users/" + cookies.name, { method: "GET", credentials: "include" });
     const result = await response.json();
     setUser(result);
   }
 
- async function GotoReviewFruitPage() {
-     const response = await fetch("http://localhost:1339/fruits", { method: "GET" });
-     const result = await response.json();
- 
-   }
  
  export { ListFruits };

@@ -10,7 +10,8 @@ function UpdateReview(){
     const navigate = useNavigate();
 
     async function handleUpdate(){
-        const reviewResponse = await fetch("http://localhost:1339/reviews/"+reviewTitle, {method: "GET"})
+        const responseRefresh = await fetch("http://localhost:1339/");
+        const reviewResponse = await fetch("http://localhost:1339/reviews/"+reviewTitle, {method: "GET", credentials: "include"})
 
         const result = await reviewResponse.json();
 

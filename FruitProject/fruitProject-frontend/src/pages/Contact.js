@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 function About() {
     /**
  * show the Contact information of admin

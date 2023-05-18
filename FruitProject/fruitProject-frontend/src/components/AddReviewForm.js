@@ -15,6 +15,7 @@ function AddReviewForm(props){
         
         const requestOptions = {
             method: "POST",
+            credentials: "include",
             body: JSON.stringify({
                 user: user,
                 fruit: fruit,

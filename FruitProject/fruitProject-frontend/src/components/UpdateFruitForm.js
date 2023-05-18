@@ -22,6 +22,7 @@ function UpdateFruitForm(props){
 
         const requestOptions ={
             method: "PUT",
+            credentials: "include",
             body: JSON.stringify({
                 oldFruitName: oldName,
                 newFruitName: newName,

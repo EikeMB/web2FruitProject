@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
     const handleSubmit = async (event) =>{
         event.preventDefault();
 
-        const response = await fetch("http://localhost:1339/fruits/" + nameRef.current.value, { method: "Get" });
+        const response = await fetch("http://localhost:1339/fruits/" + nameRef.current.value, { method: "Get", credentials: "include" });
         const result = await response.json();
         if(response.status === 400){
             navigate("/Usererror", {state: {errorMessage: result.errorMessage}});

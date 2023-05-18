@@ -18,6 +18,7 @@ function UpdateFormReview(props){
         
         const requestOptions = {
             method: "PUT",
+            credentials: "include",
             body: JSON.stringify({
                 oldTitle: review.title,
                 oldContent: review.content,

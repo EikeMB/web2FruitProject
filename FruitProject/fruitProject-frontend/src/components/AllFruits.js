@@ -23,16 +23,22 @@ function AllFruits(){
 }
 
 async function callGetFruit(setFruit, nav) {
-    const response = await fetch("http://localhost:1339/fruits", { method: "GET", credentials: 'same-origin' });
-    const result = await response.json();
-
-    if(response.status === 400){
-        nav("/Usererror", {state: {errorMessage: result.errorMessage}});
-    } else if (response.status === 500){
-        nav("/SystemError",{state: {errorMessage: result.errorMessage}})
-    }else{
-        setFruit(result);
+    const response = await fetch("http://localhost:1339/fruits", { method: "GET", credentials: 'include' });
+    if(response.status === 401){
+        
     }
+    else{
+        const result = await response.json();
+
+        if(response.status === 400){
+            nav("/Usererror", {state: {errorMessage: result.errorMessage}});
+        } else if (response.status === 500){
+            nav("/SystemError",{state: {errorMessage: result.errorMessage}})
+        }else{
+            setFruit(result);
+        }
+    }
+    
   }
 
   export { AllFruits };

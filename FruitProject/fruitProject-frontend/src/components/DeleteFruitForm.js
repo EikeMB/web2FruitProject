@@ -14,7 +14,7 @@ function DeleteFruitForm(props){
     const handleSubmit = async (event) =>{
         event.preventDefault();
 
-        const response = await fetch("http://localhost:1339/fruits/" + nameRef.current.value, { method: "DELETE" });
+        const response = await fetch("http://localhost:1339/fruits/" + nameRef.current.value, { method: "DELETE", credentials: "include" });
         const result = await response.json();
         if(response.status === 400){
             navigate("/Usererror", {state: {errorMessage: result.errorMessage}});

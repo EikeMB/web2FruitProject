@@ -1,4 +1,4 @@
-const { response } = require('express');
+
 const express = require('express');
 const { InvalidInputError } = require('../models/InvalidInputError');
 const { DatabaseError } = require('../models/DatabaseError');
@@ -6,7 +6,8 @@ const router = express.Router();
 const routeRoot = '/';
 const model = require("../models/fruitModelMongoDb"); // add to use model
 const logger = require('../logger');
-const {authenticateUser} = require("./sessionController");
+const {authenticateUser, refreshSession} = require("./sessionController");
+const {Session, createSession, getSession, deleteSession} = require('./Session');
 
 /**
  * A controller that adds fruits to the database.
@@ -21,10 +22,12 @@ router.post("/fruits/", addFruitControl); // Define endpoint
         response.sendStatus(401);
         return;
     }
+    let sessionId = refreshSession(request, response);
     let returnedFruit = await model.addFruit(request.body.fruitName,request.body.fruitVitamin,request.body.fruitCalories, request.body.fruitDetails, request.body.fruitImage);
     if(returnedFruit){
 
       logger.info("Successfully added a fruit");
+      response.cookie("sessionId", sessionId, { expires: getSession(sessionId).expiresAt , httpsOnly: true, overwrite: true });
       response.status(200);
       response.send(returnedFruit);
     }
@@ -61,11 +64,17 @@ router.get("/fruits/:fruitName", findFruitControl); // Define endpoint
 async function findFruitControl(request, response) {
   let tempFruitName = request.params.fruitName
   try{
-    
+    const authenticatedSession = authenticateUser(request);
+        if(!authenticatedSession){
+        response.sendStatus(401);
+        return;
+        }
+        let sessionId = refreshSession(request, response);
    let returnedfruit = await model.getSingleFruit(tempFruitName);
    if(returnedfruit){
     logger.info("Successfully found the Fruit");
      response.status(200);
+     response.cookie("sessionId", sessionId, { expires: getSession(sessionId).expiresAt , httpsOnly: true, overwrite: true });
      response.send(returnedfruit);
    }
    else {
@@ -101,12 +110,17 @@ async function findFruitControl(request, response) {
 router.get("/fruits", findAllFruitControl); // Define endpoint
 async function findAllFruitControl(request, response) {
   try{
-    
-    let fruitsList;
+    const authenticatedSession = authenticateUser(request);
+        if(!authenticatedSession){
+        response.sendStatus(401);
+        return;
+        }
+       let sessionId = refreshSession(request, response);
     let returnedfruit = await model.getAllFruits();
     
     fruitsList = await message(returnedfruit);
     logger.info("Successfully found all fruits");
+    response.cookie("sessionId", sessionId, { expires: getSession(sessionId).expiresAt , httpsOnly: true, overwrite: true });
     response.status(200);
     response.send(returnedfruit); 
    }  
@@ -150,10 +164,12 @@ async function deleteFruitControl(request, response) {
         response.sendStatus(401);
         return;
     }
+    let sessionId = refreshSession(request, response);
     let returnedFruit = await model.deleteFruit(tempFruitName);
      logger.info("Successfully deleted the Fruit");
      
      response.status(200);
+     response.cookie("sessionId", sessionId, { expires: getSession(sessionId).expiresAt , httpsOnly: true, overwrite: true });
      response.send(returnedFruit);
 
  }catch(err){
@@ -188,11 +204,13 @@ router.put("/fruits", updateFruitControl); // Define endpoint
         response.sendStatus(401);
         return;
     }
+    let sessionId = refreshSession(request, response);
     let returnedFruit = await model.updateFruit(request.body.oldFruitName,request.body.newFruitName,request.body.fruitVitamin,request.body.fruitCalories,request.body.fruitDetails,request.body.fruitImage);
     if(returnedFruit){
 
       logger.info("Successfully update a fruit");
       response.status(200);
+      response.cookie("sessionId", sessionId, { expires: getSession(sessionId).expiresAt , httpsOnly: true, overwrite: true });
       response.send(returnedFruit);
     }
     else {

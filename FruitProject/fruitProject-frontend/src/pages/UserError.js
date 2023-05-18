@@ -1,4 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
   /**
  * show the user the input error and give them the choice between returning to the home or fruit page
@@ -6,7 +7,7 @@ import { Link, useLocation } from "react-router-dom";
  */
 function UserError(){
     const {state} = useLocation();
-
+    
     return(
         <div>
             <h1>There was an input error</h1>

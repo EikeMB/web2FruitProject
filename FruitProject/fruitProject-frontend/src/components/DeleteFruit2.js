@@ -12,7 +12,7 @@ function DeletePokemon2(props){
 }
 
 async function callDeletePokemon(deleteFruit, fruitName) {
-    const response = await fetch("http://localhost:1339/fruits/" + fruitName, { method: "DELETE"});
+    const response = await fetch("http://localhost:1339/fruits/" + fruitName, { method: "DELETE", credentials: "include"});
 
     const result = await response.json();
     deleteFruit(result);

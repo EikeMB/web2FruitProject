@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const routeRoot = '/';
 const {authenticateUser, refreshSession} = require('./sessionController')
+const {Session, createSession, getSession, deleteSession} = require('./Session');
 
 
 /** Controller function welcome the user
@@ -11,13 +12,11 @@ const {authenticateUser, refreshSession} = require('./sessionController')
  */
  router.get("/", welcome); // Define endpoint
  function welcome(request, response) {
-   const authenticatedSession = authenticateUser(request);
-   if(!authenticatedSession){
-    response.sendStatus(401);
-    return;
-   }
+   const sessionId = refreshSession(request, response);
+   
    const output = "Welcome to Fruit website"
-   refreshSession(request, response);
+   
+   response.cookie("sessionId", sessionId, {expires: getSession(sessionId).expiresAt, httpOnly: true});
    response.send(output);
  }
 

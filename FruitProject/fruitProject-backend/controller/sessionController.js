@@ -29,14 +29,14 @@ async function registerUser(request, response){
         else{
             const sessionId = createSession(username, 10);
 
-        response.cookie("sessionId", sessionId, { expires: getSession(sessionId).expiresAt , httpsOnly: true });
+        response.cookie("sessionId", sessionId, { expires: getSession(sessionId).expiresAt , httpsOnly: true, overwrite: true });
         response.sendStatus(200);
         return;
         }
 }
 
 router.get('/auth', authUser);
-async function authUser(request, resopnse){
+async function authUser(request, response){
     try {
         const authenticatedSession = authenticateUser(request);
         if(!authenticatedSession){
@@ -63,7 +63,7 @@ async function loginUser(request, response){
         else{
             const sessionId = createSession(username, 10);
 
-        response.cookie("sessionId", sessionId, { expires: getSession(sessionId).expiresAt , httpsOnly: true });
+        response.cookie("sessionId", sessionId, { expires: getSession(sessionId).expiresAt , httpsOnly: true, overwrite: true });
         response.sendStatus(200);
         return;
         }
@@ -91,10 +91,9 @@ function authenticateUser(request){
         deleteSession(sessionId);
         return null;
     }
-
+    
     return {sessionId, userSession};
 }
-
 function refreshSession(request, response){
     const authenticatedSession = authenticateUser(request);
     if(!authenticatedSession){
@@ -103,8 +102,9 @@ function refreshSession(request, response){
     }
 
     const newSessionId = createSession(authenticatedSession.userSession.username, 10);
+    
     deleteSession(authenticatedSession.sessionId)
-    response.cookie("sessionId", newSessionId, {expires: getSession(newSessionId).expiresAt, httpOnly: true});
+    
 
     return newSessionId;
 }

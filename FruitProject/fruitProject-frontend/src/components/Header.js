@@ -19,7 +19,7 @@ function Header(){
 
     useEffect(() =>{
         callGetUser(setUser, cookies.name)
-    })
+    }, [isLoggedIn])
 
 
     return(
@@ -37,7 +37,7 @@ function Header(){
 }
 
 async function callGetUser(setUser,username) {
-    const response = await fetch("http://localhost:1339/users/" + username, { method: "GET" });
+    const response = await fetch("http://localhost:1339/users/" + username, { method: "GET", credentials: "include" });
     const result = await response.json();
     setUser(result);
   }

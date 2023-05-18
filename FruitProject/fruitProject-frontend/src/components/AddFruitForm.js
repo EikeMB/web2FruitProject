@@ -21,6 +21,7 @@ function AddFruitForm(props){
 
         const requestOptions ={
             method: "POST",
+            credentials: "include",
             body: JSON.stringify({
                 fruitName: nameRef.current.value,
                 fruitVitamin: vitaminRef.current.value,

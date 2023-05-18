@@ -30,25 +30,24 @@ const usernameInContext = createContext({
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [username, setUsername] = useState("");
-  const UsernameInValueAndSetter = [username, setUsername];
   const LoggedInValueAndSetter = [isLoggedIn, setIsLoggedIn];
-useEffect(() => {
-  async function checkForLoggedIn(){
-    try {
-      const response = await fetch("http://localhost/1339/session/auth", {method: "GET", credentials: "include"})
-      if(response.status === 200){
-        setIsLoggedIn(true);  
-      }
-      else{
+
+  useEffect(() => {
+    async function checkForLoggedIn(){
+      try {
+        const response = await fetch("http://localhost/1339/session/auth", {method: "GET", credentials: "include"})
+        if(response.status === 200){
+          setIsLoggedIn(true);  
+        }
+        else{
+          setIsLoggedIn(false);
+        }
+      } catch (error) {
         setIsLoggedIn(false);
       }
-    } catch (error) {
-      setIsLoggedIn(false);
     }
-  }
-  checkForLoggedIn();
-}, [])
-
+    checkForLoggedIn();
+  }, [])
   return (
     <div className="App">
       <LoggedInContext.Provider value={LoggedInValueAndSetter}>
