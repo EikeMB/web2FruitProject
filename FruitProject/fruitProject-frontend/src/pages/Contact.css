@@ -1,0 +1,50 @@
+.Contact_body{
+
+}
+.Title{
+    font-size: 100px;
+    margin-bottom: 100px;
+}
+
+.Contact_container{
+    display: flex;
+    margin-left: 150px;
+    margin-right: 150px;
+    margin-bottom: 100px;
+}
+
+.Contact_firstSection{
+    flex: 50%;
+    background-color: rgb(114, 134, 25);
+    margin-left: 60px;
+    margin-right: 60px;
+    padding: 40px;
+    border-radius: 40px;
+}
+
+.Contact_body p{
+    font-size: 20px;
+    line-height: 50px;
+    font-family: fantasy;
+}
+
+.Contact_body h1{
+    font-size: 50px;
+}
+
+.Contact_body img{
+    border-radius: 50px;
+}
+
+.img2 {
+    background-image: url("../../public/images/About_image_2.jpg");
+    background-repeat: no-repeat;
+    background-size: 700px 600px;
+    object-fit: fill;
+
+  }
+
+.Contact-card{
+
+
+  }

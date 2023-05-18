@@ -1,0 +1,40 @@
+.about_body{
+
+}
+.Title{
+    font-size: 100px;
+    margin-bottom: 100px;
+}
+
+.about_container{
+    display: flex;
+    margin-left: 150px;
+    margin-right: 150px;
+    margin-bottom: 100px;
+}
+
+.about_firstSection{
+    flex: 50%;
+}
+
+.about_body p{
+    font-size: 20px;
+    line-height: 50px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.about_body h1{
+    font-size: 50px;
+}
+
+.about_body img{
+    border-radius: 50px;
+}
+
+.img2 {
+    background-image: url("../../public/images/About_image_2.jpg");
+    background-repeat: no-repeat;
+    background-size: 700px 600px;
+    object-fit: fill;
+
+  }

@@ -17,7 +17,6 @@ function LogoutButton(){
         };
         const response = await fetch("http://localhost:1339/session/logout", requestOptions);
         if(response.status === 200){
-            alert("Goodbye, see you later!");
             setIsLoggedIn(false);
             removeCookie("name", )
             navigate("/");
