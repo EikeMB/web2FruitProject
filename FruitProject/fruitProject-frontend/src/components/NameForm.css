@@ -57,4 +57,46 @@
     opacity: 1;
     right: 0;
   }
+
+  .Register-btn{
+
+    display: inline-block;
+    border-radius: 4px;
+    background-color: #874308e7;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 14px;
+    padding: 25px;
+    width: 100px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+    font-family:cursive;
+  }
+
+  .Register-btn span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+  }
+  
+  .Register-btn span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+  }
+  
+  .Register-btn:hover span {
+    padding-right: 13px;
+  }
+  
+  .Register-btn:hover span:after {
+    opacity: 1;
+    right: 0;
+  }
  
