@@ -12,6 +12,11 @@ function Reviews(){
     const [fruit, setFruit] = useState([]);
     const navigate = useNavigate();
 
+
+    useEffect(() =>{
+        getReviews();
+    },[reviews]);
+
     async function getReviews(){
         const response = await fetch("http://localhost:1339/reviews/fruits/" + fruitname.toLocaleLowerCase() ,{method: "GET", credentials: "same-origin"})
         
@@ -43,10 +48,6 @@ function Reviews(){
     }
 
     
-    useEffect(() =>{
-        getReviews();
-    });
-
     return (
         <div className="flex-container"> 
             <div className="fruitCard">

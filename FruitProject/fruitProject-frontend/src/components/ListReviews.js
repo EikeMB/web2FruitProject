@@ -13,8 +13,9 @@ import AddReviewForm from "./AddReviewForm";
  */
 function ListReviews(props){
     const [cookies, setCookie] = useCookies(["name"]);
-    const [review, setReview] = useState([]);
     const navigate = useNavigate();
+
+
     const handleDelete = async (review) => {
         
         const response = await fetch("http://localhost:1339/reviews/" + review.title, {method: "DELETE", credentials: "same-origin"})

@@ -52,8 +52,9 @@ function NameForm(){
             <input  className="form-group" type="password" placeholder="Password..." ref={passwordRef} required/>
             
             <button className="login-btn" type="submit"><span>Login</span></button>
+            <button className="Register-btn" onClick={handleRegister}><span>Register</span></button>
         </form>
-        <button onClick={handleRegister}>Register</button>
+        
         </div>
     );
 }
