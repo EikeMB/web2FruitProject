@@ -1,14 +1,21 @@
 .logout-btn{
-    background-color: #4CAF50; /* Green */
+    background-color: grey; /* Green */
     border: none;
     color: white;
     padding: 16px 32px;
+    padding-top: 31px;
+    padding-bottom: 31px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    margin: 4px 2px;
     transition-duration: 0.4s;
     cursor: pointer;
     margin:0px;
+    
 }
+
+.logout-btn:hover {
+    background-color: rgba(217, 10, 24, 0.527);
+    color: black;
+  }
