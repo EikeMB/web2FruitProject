@@ -1,9 +1,9 @@
-.card{
+.reviewCard{
     text-align: center;
     box-shadow: 0 4px 8px 0;
     border-radius: 5px;
     max-width: 300px;
-    background-color: rgb(93, 117, 37);
+    background-color: rgba(145, 141, 19, 0.771);
     padding: 2px 16px;
     display: flex;
     flex-direction: column;
@@ -13,11 +13,11 @@
     font-size: calc(10px);
     margin-top: 40px;
     margin-bottom: 20px;
-    /* margin-left: 30px;
-    margin-right: 10px; */
+    margin-left: 30px;
+    margin-right: 10px;
     
 }
 
-.card-img{
+.reviewCard-img{
     max-height: 100px;
 }

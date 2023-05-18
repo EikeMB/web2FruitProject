@@ -1,6 +1,6 @@
 import {useState} from "react";
 import { useNavigate } from "react-router-dom";
-import "./forms.css"
+import "./AddReview.css"
 
 function AddReviewForm(props){
     const user = props.user;
@@ -46,6 +46,7 @@ function AddReviewForm(props){
 
     return (
         <form onSubmit={handleSubmit} className="text-center">
+            <div className="add_review_container">
             <label htmlFor="title">Title</label>
             <input type="text" placeholder="Title..." onChange={(e) => setTitle(e.target.value)} required/>
             <p/>
@@ -59,6 +60,8 @@ function AddReviewForm(props){
             <br></br>
             <p/>
             <button type="submit">Add Review</button>
+
+            </div>
         </form>
     )
 }

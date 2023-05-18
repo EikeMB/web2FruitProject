@@ -1,4 +1,4 @@
-import Card from "./Card"
+import ReviewCard from "./ReviewCard.js"
 
 /**
  * component that displays a review using the Card component
@@ -7,7 +7,7 @@ import Card from "./Card"
  */
 function DisplayReview(props){
     return (
-        <Card>
+        <ReviewCard>
             <h3>{props.heading}</h3>
             <h1>Review Title: {props.review.title}</h1>
             <br/>
@@ -17,7 +17,7 @@ function DisplayReview(props){
             <br/>
             <h2>Rating: {props.review.rating}</h2>
             
-        </Card>
+        </ReviewCard>
 
     )
 }
