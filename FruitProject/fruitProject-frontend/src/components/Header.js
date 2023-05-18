@@ -19,7 +19,7 @@ function Header(){
 
     useEffect(() =>{
         callGetUser(setUser, cookies.name)
-    })
+    }, [cookies])
 
 
     return(
