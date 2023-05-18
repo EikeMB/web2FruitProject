@@ -17,11 +17,7 @@ router.post("/users", createUser);
 async function createUser(request, response){
     body = request.body;
     try {
-        const authenticatedSession = authenticateUser(request);
-        if(!authenticatedSession){
-        response.sendStatus(401);
-        return;
-        }
+        
         result = await model.addUser(body.username, body.password, body.role)
 
         responseString = "User added: \n" + result.username + " " + result.password + " " + result.role;

@@ -2,6 +2,7 @@ import {useContext, useRef} from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import { LoggedInContext , usernameInContext} from "./App";
+import { RegisterForm } from "./RegisterForm";
 
 function NameForm(){
     const nameRef = useRef(null);
@@ -39,13 +40,20 @@ function NameForm(){
 
            
     };
+
+    const handleRegister = () => {
+        navigate("/register");
+    }
     return(
+        <div>
         <form onSubmit={handleSubmit}>
             <input type="text" placeholder="Name..." ref={nameRef} required/>
             <input type="password" placeholder="Password..." ref={passwordRef} required/>
             
-            <button type="submit">Submit</button>
+            <button type="submit">Login</button>
         </form>
+        <button onClick={handleRegister}>Register</button>
+        </div>
     );
 }
 
