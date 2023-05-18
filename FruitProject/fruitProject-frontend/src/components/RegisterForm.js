@@ -37,7 +37,7 @@ function RegisterForm(){
         } 
     }
     else{
-        navigate("/Usererror", {state: {errorMessage: result.errorMessage}}); // error
+        // navigate("/Usererror", {state: {errorMessage: result.errorMessage}}); // error
     }
 
            

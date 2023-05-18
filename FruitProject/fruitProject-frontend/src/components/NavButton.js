@@ -1,5 +1,10 @@
 import {NavLink, useResolvedPath, useMatch } from "react-router-dom";
 
+/**
+ * create a customize button that links to a page given
+ * @param {*} props the name of page to navigate
+ * @returns a button that send to a the link page
+ */
 function NavButton(props){
     let resolved = useResolvedPath(props.to);
     let match = useMatch({ path: resolved.pathname, end:true });

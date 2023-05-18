@@ -11,7 +11,7 @@ import { SingleFruit } from "./SingleFruit";
 function FruitModify(){
     return(
         <div>
-            <h1>Add/Update/Delete Fruit</h1>
+            <h1>Admin's Fruit Control</h1>
             <SingleFruit/>
             <AddFruit/>
             <UpdateFruit/>

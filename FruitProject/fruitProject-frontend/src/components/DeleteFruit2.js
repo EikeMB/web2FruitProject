@@ -1,6 +1,11 @@
 import { useState } from "react"
 import "./ListFruits.css"
 
+/**
+ * create button that allows user to delete fruits
+ * @param {Object} props the data that will represent fruit to set it
+ * @returns react element of button to delete;
+ */
 function DeletePokemon2(props){
     const [fruit, deleteFruit] = useState({});
 
