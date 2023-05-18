@@ -23,9 +23,6 @@ function Home() {
             setIsLoggedIn(true);  
             
           }
-          else{
-            setIsLoggedIn(false);
-          }
         } catch (error) {
           setIsLoggedIn(false);
         }
