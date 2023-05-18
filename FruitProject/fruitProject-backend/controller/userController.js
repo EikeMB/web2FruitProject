@@ -6,6 +6,7 @@ const model = require("../models/userModel");
 const {InvalidInputError} = require("../models/InvalidInputError");
 const {DatabaseError} = require('../models/DatabaseError');
 const logger = require("../logger");
+const {authenticateUser} = require("./sessionController");
 
 module.exports = {
     router,
@@ -16,6 +17,7 @@ router.post("/users", createUser);
 async function createUser(request, response){
     body = request.body;
     try {
+        
         result = await model.addUser(body.username, body.password, body.role)
 
         responseString = "User added: \n" + result.username + " " + result.password + " " + result.role;
@@ -49,6 +51,7 @@ async function getUser(request, response) {
     username = request.params.username
     password = request.params.password
     try {
+        
         result = await model.getSingleUser(username, password);
         responseString = "User found: " + result.username + " " + result.password;
         logger.info(responseString);
@@ -79,6 +82,7 @@ async function getUser(request, response) {
 router.get("/users/:name", getUserFromSession);
 async function getUserFromSession(request, response) {
     try {
+        
         user = await model.getSingleUserByName(request.params.name);
         response.status(200);
         response.send(user);
@@ -108,6 +112,7 @@ async function getUserFromSession(request, response) {
 router.get("/users", getUsers);
 async function getUsers(request, response){
     try {
+        
         result = await model.getAllUsers();
         response.status(200)
         response.send(result)
@@ -131,6 +136,11 @@ router.put("/users", updateUser);
 async function updateUser(request, response){
     body = request.body;
     try {
+        const authenticatedSession = authenticateUser(request);
+        if(!authenticatedSession){
+        response.sendStatus(401);
+        return;
+        }
         await model.updateUser(body.oUsername, body.oPassword, body.oRole, body.nUsername, body.nPassword, body.nRole);
         response.status(200)
         response.send({username: body.nUsername, password: body.nPassword, role: body.nRole})
@@ -160,6 +170,11 @@ async function deleteUser(request, response) {
     userName = request.params.userName
     password = request.params.password
     try {
+        const authenticatedSession = authenticateUser(request);
+        if(!authenticatedSession){
+        response.sendStatus(401);
+        return;
+        }
         result = await model.deleteUser(userName, password);
         response.status(200);
         response.send(result)

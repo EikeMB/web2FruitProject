@@ -143,9 +143,9 @@ const url = process.env.URL_BEGIN + process.env.MONGODB_PWD + process.env.URL_EN
 
 fruitModel.initialize("Fruit_db", false, url,)
     .then(
-        userModel.initialize("user_db", false, url)
+        reviewModel.initialize("review_db", false, url)
         .then(
-            reviewModel.initialize("review_db", false, url)
+            userModel.initialize("user_db", false, url)
             .then(
                 app.listen(port) // Run the server
             )

@@ -30,16 +30,31 @@ async function registerUser(request, response){
             const sessionId = createSession(username, 10);
 
         response.cookie("sessionId", sessionId, { expires: getSession(sessionId).expiresAt , httpsOnly: true });
-        response.redirect("/");
+        response.sendStatus(200);
+        return;
         }
+}
+
+router.get('/auth', authUser);
+async function authUser(request, resopnse){
+    try {
+        const authenticatedSession = authenticateUser(request);
+        if(!authenticatedSession){
+            response.sendStatus(401);
+        }
+        else{
+            response.sendStatus(200)
+        }
+    } catch (error) {
+        response.sendStatus(401);
+    }
 }
 
 router.post('/login', loginUser);
 async function loginUser(request, response){
-    const username = request.body.username;
-    const password = request.body.password;
-
-        responseUser = await fetch("http://localhost:1339/users/" + username + "/" + password)
+    body = request.body;
+        url = "http://localhost:1339/users/" + body.username + "/" + body.password;
+        responseUser = await fetch(url, {method: "GET"})
         result = await responseUser.json();
 
         if(responseUser.status != 200){
@@ -49,7 +64,8 @@ async function loginUser(request, response){
             const sessionId = createSession(username, 10);
 
         response.cookie("sessionId", sessionId, { expires: getSession(sessionId).expiresAt , httpsOnly: true });
-        response.redirect("/");
+        response.sendStatus(200);
+        return;
         }
 
     
@@ -104,7 +120,8 @@ function logoutUser(request, response){
     console.log("logged out user " + authenticatedSession.username);
 
     response.cookie("sessionId", "", {expires: new Date() , httpOnly: true})
-    response.redirect('/');
+    response.sendStatus(200);
+    return;
 }
 
 module.exports = {router, routeRoot, loginUser, authenticateUser, refreshSession};

@@ -9,12 +9,14 @@ function DisplayReview(props){
     return (
         <Card>
             <h3>{props.heading}</h3>
-            <p>Review Title: {props.review.title}
+            <h1>Review Title: {props.review.title}</h1>
             <br/>
+            <h3>
             Review content: {props.review.content}
+            </h3>
             <br/>
-            Rating: {props.review.rating}
-            </p>
+            <h2>Rating: {props.review.rating}</h2>
+            
         </Card>
 
     )

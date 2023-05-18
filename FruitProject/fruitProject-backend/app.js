@@ -1,8 +1,20 @@
-const bodyParser = require("body-parser");
-const cors = require("cors");
 const express = require('express');
+const bodyParser = require("body-parser");
 const cookieParser = require('cookie-parser');
 const app = express();
+const cors = require("cors");
+const corsOptions = {
+    origin: "http://localhost:3000",
+    credentials: true,
+};
+app.use(cors(corsOptions));
+app.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Headers", "X-Requested-With, Accept, Content-Type, Authorization");
+    res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+    res.setHeader("Access-Control-Allow-Credentials", true);
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST,PUT, DELETE, OPTIONS, HEAD, PATCH");
+    next();
+})
 app.use(cookieParser());
 
 const logger = require('./logger');
@@ -19,10 +31,9 @@ console.log(listEndpoints(app))
 // Make sure errorController is last!
 const controllers = ['homeController', 'fruitController', 'userController', 'sessionController','reviewController', 'errorController'] 
 
-app.use(cors());
 app.use(express.json());
 // Configuring body parser middleware
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 //app.use(express.json());
 

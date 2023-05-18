@@ -1,7 +1,9 @@
-import {useRef} from "react";
+import {useContext, useRef} from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import "./NameForm.css"
+import { LoggedInContext , usernameInContext} from "./App";
+import { RegisterForm } from "./RegisterForm";
 
 function NameForm(){
     const nameRef = useRef(null);
@@ -9,29 +11,50 @@ function NameForm(){
 
     const navigate = useNavigate();
     const [cookies, setCookie] = useCookies (["name"]);
+    const [isLoggedIn, setIsLoggedIn] = useContext(LoggedInContext)
 
     const handleSubmit = async (event) =>{
         event.preventDefault();
+        
 
-        const response = await fetch("http://localhost:1339/users/" + nameRef.current.value + "/" + passwordRef.current.value, { method: "Get" });
-        const result = await response.json();
-        if(response.status === 400){
-            navigate("/Usererror", {state: {errorMessage: result.errorMessage}});
-        } else if (response.status === 500){
-            navigate("/SystemError",{state: {errorMessage: result.errorMessage}})
-        }else{
+        const response = await fetch("http://localhost:1339/session/login", {
+        method: "POST",
+        credentials: "include",
+        body: JSON.stringify({
+            username: nameRef.current.value,
+            password: passwordRef.current.value,
+        }),
+        headers: {
+            "Content-Type": "application/json"
+        },
+    });
+        
+        if(response.status === 200){
+            alert("thanks for login in");
+            setIsLoggedIn(true);
             setCookie("name", nameRef.current.value);
+            navigate("/");
+        } else {
+            setIsLoggedIn(false);
+            alert("Invalid login. Please try again");
         } 
 
            
     };
+
+    const handleRegister = () => {
+        navigate("/register");
+    }
     return(
+        <div>
         <form onSubmit={handleSubmit}>
             <input className="form-group" type="text" placeholder="Name..." ref={nameRef} required/>
             <input  className="form-group" type="password" placeholder="Password..." ref={passwordRef} required/>
             
             <button className="login-btn" type="submit"><span>Login</span></button>
         </form>
+        <button onClick={handleRegister}>Register</button>
+        </div>
     );
 }
 

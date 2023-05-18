@@ -6,6 +6,7 @@ const model = require("../models/reviewsModel");
 const {InvalidInputError} = require("../models/InvalidInputError");
 const {DatabaseError} = require('../models/DatabaseError');
 const logger = require("../logger");
+const {authenticateUser} = require("./sessionController");
 
 module.exports = {
     router,
@@ -24,6 +25,7 @@ router.post("/reviews", createReview);
 async function createReview(request, response){
     body = request.body;
     try {
+        
         result = await model.addReview(body.fruit,body.title, body.content, body.rating,body.user);
 
         responseString = "Review added: \n" + result.title + " " + result.content + " " + result.rating;
@@ -68,6 +70,7 @@ router.get("/reviews/:title", getReview);
 async function getReview(request, response){
     reviewTitle = request.params.title;
     try {
+        
         result = await model.getSingleReview(reviewTitle);
         responseString = "Review found: " + result.title + " " + result.content + " " + result.rating;
         logger.info(responseString);
@@ -110,6 +113,11 @@ async function getReview(request, response){
  router.get("/reviews", getReviews);
 async function getReviews(request, response){
     try {
+        const authenticatedSession = authenticateUser(request);
+        if(!authenticatedSession){
+        response.sendStatus(401);
+        return;
+        }
         result = await model.getAllReviews();
         responseString = "Reviews:\n";
         result.forEach(review => {
@@ -139,6 +147,7 @@ router.get("/reviews/fruits/:fruit", getFruitReviews);
 async function getFruitReviews(request, response){
     fruit = request.params.fruit;
     try {
+        
         result = await model.getAllFruitReviews(fruit);
         responseString = "Reviews:\n";
         result.forEach(review => {
@@ -177,6 +186,7 @@ async function getFruitReviews(request, response){
 async function updateReview(request, response){
     body = request.body;
     try {
+        
         result = await model.updateReview(body.oldTitle, body.oldContent, body.oldRating, body.newTitle, body.newContent, body.newRating);
         responseString = "Review: " + " " + body.oldTitle + " " + body.oldContent + " " + body.oldRating + " updated to\n" +
         body.newTitle + " " + body.newContent + " " + body.newRating;
@@ -219,6 +229,7 @@ router.delete("/reviews/:title", deleteReview);
 async function deleteReview(request, response){
     reviewTitle = request.params.title;
     try {
+        
         result = await model.deleteReview(reviewTitle);
         response.status(200);
         responseString = "Review: " + reviewTitle + " deleted";

@@ -7,8 +7,8 @@ import './Banner.css';
  */
 function Banner(){
     return(  
-    <div class="banner-image">
-        <div class="banner-text">
+    <div className="banner-image">
+        <div className="banner-text">
             <h1>The Objectively Best Fruit Tier List</h1>
         </div>
     </div>

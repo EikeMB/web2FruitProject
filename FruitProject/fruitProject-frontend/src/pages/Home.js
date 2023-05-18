@@ -3,6 +3,8 @@ import { NameForm } from "../components/NameForm";
 import { useCookies } from "react-cookie";
 import { useLocation, useSearchParams } from "react-router-dom";
 import Alert from "react-bootstrap/Alert"
+import { LoggedInContext } from "../components/App";
+import { useContext } from "react";
 
   /**
  * show all tool to interact with fruit database
@@ -11,14 +13,14 @@ import Alert from "react-bootstrap/Alert"
 function Home() {
     const [searchParams, setSearchParams] = useSearchParams();
     const [cookies, setCookie] = useCookies (["name"]); const {state } = useLocation();
-    
+    const [isLoggedIn, setIsLoggedIn] = useContext(LoggedInContext);
 
   return (
     <>
     {state && state.errorMessage && <Alert variant="danger">{state.errorMessage}</Alert>}
     <h1><u>Welcome to our Fruit App</u> {searchParams.get("name")}!</h1>
     <br/>
-    {cookies.name ? <Main /> : <NameForm />}
+    {isLoggedIn ? <Main /> : <NameForm />}
     </>
       
   );
