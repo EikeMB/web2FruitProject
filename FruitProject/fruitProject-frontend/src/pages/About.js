@@ -37,7 +37,7 @@ function About() {
         <div className="about_firstSection">
         <h1>
           <br/>
-            Goal</h1>
+           Our Goal</h1>
           <p>
           At the Objectively Best Fruit Tier List, 
           we believe that fruits deserve the spotlight they often miss in the culinary world.
@@ -47,6 +47,28 @@ function About() {
           </p>
         </div>
       </div>
+
+
+      <div className="about_container">
+        <div className="about_firstSection">
+          <h1>
+            The ultimate resource</h1>
+          <p>
+
+          We encourage our visitors to share their own experiences, insights, and recommendations. We believe in the power of collective wisdom, and by fostering a vibrant community, we can all benefit from each other's fruit-related knowledge.
+          As you explore our website, you'll find comprehensive fruit profiles, detailed reviews, and visually appealing images that showcase the natural beauty of each fruit.
+          So whether you're looking to discover new fruits to tantalize your taste buds, seeking recommendations for the perfect fruit gift basket, or simply want to dive deeper into the world of fruits,
+          the Objectively Best Fruit Tier List is your ultimate resource.
+
+          </p>
+        </div>  
+        <div className="about_firstSection">
+        <img src="https://i.imgflip.com/1rpnxz.jpg" alt="Girl in a jacket" width="700" height="600"/>
+
+        </div>
+      </div>
+
+
     </div>
   );
 }

@@ -1,4 +1,4 @@
-.about_body{
+.Contact_body{
 
 }
 .Title{
@@ -6,28 +6,33 @@
     margin-bottom: 100px;
 }
 
-.about_container{
+.Contact_container{
     display: flex;
     margin-left: 150px;
     margin-right: 150px;
     margin-bottom: 100px;
 }
 
-.about_firstSection{
+.Contact_firstSection{
     flex: 50%;
+    background-color: rgb(114, 134, 25);
+    margin-left: 60px;
+    margin-right: 60px;
+    padding: 40px;
+    border-radius: 40px;
 }
 
-.about_body p{
+.Contact_body p{
     font-size: 20px;
     line-height: 50px;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: fantasy;
 }
 
-.about_body h1{
+.Contact_body h1{
     font-size: 50px;
 }
 
-.about_body img{
+.Contact_body img{
     border-radius: 50px;
 }
 
@@ -36,5 +41,10 @@
     background-repeat: no-repeat;
     background-size: 700px 600px;
     object-fit: fill;
+
+  }
+
+.Contact-card{
+
 
   }
