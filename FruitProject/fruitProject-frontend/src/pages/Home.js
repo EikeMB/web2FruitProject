@@ -12,7 +12,7 @@ import { useContext, useEffect } from "react";
  */
 function Home() {
     const [searchParams, setSearchParams] = useSearchParams();
-    const [cookies, setCookie] = useCookies (["name"]); const {state } = useLocation();
+    const [cookies, setCookie] = useCookies (["name", "sessionId"]); const {state } = useLocation();
     const [isLoggedIn, setIsLoggedIn] = useContext(LoggedInContext);
     
     useEffect(() => {
@@ -22,6 +22,12 @@ function Home() {
           if(response.status === 200){
             setIsLoggedIn(true);  
             
+          }
+          else{
+            const cookie = cookies.sessionId;
+            if(!cookie){
+              setIsLoggedIn(false);
+            }
           }
         } catch (error) {
           setIsLoggedIn(false);
