@@ -30,7 +30,7 @@ function NameForm(){
     });
         
         if(response.status === 200){
-            alert("thanks for login in");
+            // alert("thanks for login in");
             setIsLoggedIn(true);
             setCookie("name", nameRef.current.value);
             navigate("/");

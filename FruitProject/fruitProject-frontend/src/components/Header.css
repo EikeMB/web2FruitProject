@@ -1,6 +1,11 @@
 .test {
     text-align: left;
     font-family:cursive;
+    display: flex;
+  }
+
+  .test-con{
+    flex: 50%;
   }
 
   .test-p{
@@ -11,3 +16,11 @@
   
   font-family:cursive;
 }
+
+.test2 {
+
+  font-family:cursive;
+  font-size: 100px;
+
+}
+
