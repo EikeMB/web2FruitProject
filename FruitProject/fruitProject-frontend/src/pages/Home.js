@@ -35,7 +35,7 @@ function Home() {
   return (
     <>
     {state && state.errorMessage && <Alert variant="danger">{state.errorMessage}</Alert>}
-    <h1><u>Welcome to our Fruit App</u> {searchParams.get("name")}!</h1>
+
     <br/>
     {isLoggedIn ? <Main /> : <NameForm />}
     </>

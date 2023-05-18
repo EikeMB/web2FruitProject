@@ -19,20 +19,18 @@ async function registerUser(request, response){
         headers: {
             "Content-Type": "application/json; charset=utf-8",
         }
-    };
-    responseUser = await fetch("http://localhost:1339/users", requestOptions)
+    };try{
+        responseUser = await fetch("http://localhost:1339/users", requestOptions)
         result = await responseUser.json();
-
-        if(responseUser.status != 200){
-            response.sendStatus(401);
-        }
-        else{
-            const sessionId = createSession(username, 10);
+        const sessionId = createSession(username, 10);
 
         response.cookie("sessionId", sessionId, { expires: getSession(sessionId).expiresAt , httpsOnly: true, overwrite: true });
         response.sendStatus(200);
         return;
-        }
+    }
+    catch{
+        response.sendStatus(400);
+    }
 }
 
 router.get('/auth', authUser);

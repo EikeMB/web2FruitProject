@@ -6,8 +6,8 @@
     margin-left: auto;
     margin-right: auto;
     width: 300px;
-    margin-bottom: 30px;
     margin-top: 30px;
+    margin-bottom: 30px;
     align-items: center;
     padding: 20px;
     font-size: large;
@@ -18,7 +18,7 @@
     align-items: center;
 } */
 
-.login-btn {
+.Register-btn_r {
     display: inline-block;
     border-radius: 4px;
     background-color: #db7a24e7;
@@ -34,14 +34,14 @@
     font-family:cursive;
   }
   
-  .login-btn span {
+  .Register-btn_r span {
     cursor: pointer;
     display: inline-block;
     position: relative;
     transition: 0.5s;
   }
   
-  .login-btn span:after {
+  .Register-btn_r span:after {
     content: '\00bb';
     position: absolute;
     opacity: 0;
@@ -50,16 +50,16 @@
     transition: 0.5s;
   }
   
-  .login-btn:hover span {
+  .Register-btn_r:hover span {
     padding-right: 25px;
   }
   
-  .login-btn:hover span:after {
+  .Register-btn_r:hover span:after {
     opacity: 1;
     right: 0;
   }
 
-  .Register-btn{
+  .login-btn_r{
 
     display: inline-block;
     border-radius: 4px;
@@ -76,14 +76,14 @@
     font-family:cursive;
   }
 
-  .Register-btn span {
+  .login-btn_r span {
     cursor: pointer;
     display: inline-block;
     position: relative;
     transition: 0.5s;
   }
   
-  .Register-btn span:after {
+  .login-btn_r span:after {
     content: '\00bb';
     position: absolute;
     opacity: 0;
@@ -92,11 +92,11 @@
     transition: 0.5s;
   }
   
-  .Register-btn:hover span {
+  .login-btn_r:hover span {
     padding-right: 13px;
   }
   
-  .Register-btn:hover span:after {
+  .login-btn_r:hover span:after {
     opacity: 1;
     right: 0;
   }
