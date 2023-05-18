@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { LoggedInContext } from "./App";
 import {useNavigate} from "react-router-dom";
 import { useCookies } from "react-cookie";
+import "./Logout.css"
 
 function LogoutButton(){
     const [isLoggedIn, setIsLoggedIn] = useContext(LoggedInContext);
@@ -34,7 +35,7 @@ function LogoutButton(){
     }
 
     return(
-        <button onClick={logout}>
+        <button className="logout-btn" onClick={logout}>
             Logout
         </button>
     )

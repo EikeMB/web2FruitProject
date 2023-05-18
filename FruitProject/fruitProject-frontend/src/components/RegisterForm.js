@@ -2,6 +2,7 @@ import {useRef, useContext} from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import { LoggedInContext } from "./App";
+import "./Register.css";
 
 function RegisterForm(){
     const nameRef = useRef(null);
@@ -49,13 +50,18 @@ function RegisterForm(){
 
            
     };
+    const handleRegister = () => {
+        navigate("/");
+    }
     return(
         <form onSubmit={handleSubmit}>
-            <input type="text" placeholder="Name..." ref={nameRef} required/>
-            <input type="password" placeholder="Password..." ref={passwordRef} required/>
-            <input type="password" placeholder="PasswordConfirm..." ref={passwordConfirmRef} required/>
+            <h1><br/>Create Account</h1>
+            <input className="form-group" type="text" placeholder="Name..." ref={nameRef} required/>
+            <input  className="form-group" type="password" placeholder="Password..." ref={passwordRef} required/>
+            <input  className="form-group" type="password" placeholder="PasswordConfirm..." ref={passwordConfirmRef} required/>
             
-            <button type="submit">Submit</button>
+            <button className="Register-btn_r" type="submit">Register</button>
+            <button className="login-btn_r" onClick={handleRegister}><span>login</span></button>
         </form>
     );
 }

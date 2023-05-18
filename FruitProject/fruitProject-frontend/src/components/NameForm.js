@@ -48,6 +48,7 @@ function NameForm(){
     return(
         <div>
         <form onSubmit={handleSubmit}>
+        <h1><br/>Connect Account</h1>
             <input className="form-group" type="text" placeholder="Name..." ref={nameRef} required/>
             <input  className="form-group" type="password" placeholder="Password..." ref={passwordRef} required/>
             
