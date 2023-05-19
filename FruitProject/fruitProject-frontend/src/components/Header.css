@@ -1,26 +1,20 @@
-.test {
+.header-container {
     text-align: left;
     font-family:cursive;
     display: flex;
   }
 
-  .test-con{
+  .header-container-con{
     flex: 50%;
   }
 
-  .test-p{
+  .header-container-p{
     font-family: fantasy;
   }
 
-.test button{
+.header-container button{
   
   font-family:cursive;
 }
 
-.test2 {
-
-  font-family:cursive;
-  font-size: 100px;
-
-}
 

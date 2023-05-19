@@ -1,7 +1,11 @@
 import { useState } from "react"
 import "./ListFruits.css"
 
-function DeletePokemon2(props){
+/**
+ * button that deletes fruit in a single click
+ * @returns compoents to to delete and display fruits
+ */
+function DeleteFruit2(props){
     const [fruit, deleteFruit] = useState({});
 
     return(
@@ -18,4 +22,4 @@ async function callDeletePokemon(deleteFruit, fruitName) {
     deleteFruit(result);
   }
 
-  export {DeletePokemon2}
+  export {DeleteFruit2}

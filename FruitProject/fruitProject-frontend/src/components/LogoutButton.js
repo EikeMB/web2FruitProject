@@ -4,6 +4,10 @@ import {useNavigate} from "react-router-dom";
 import { useCookies } from "react-cookie";
 import "./Logout.css"
 
+/**
+ * create button that allows user to logout
+ * @returns react element of button for logout;
+ */
 function LogoutButton(){
     const [isLoggedIn, setIsLoggedIn] = useContext(LoggedInContext);
     const [cookies, setCookie, removeCookie] = useCookies(["names"]);

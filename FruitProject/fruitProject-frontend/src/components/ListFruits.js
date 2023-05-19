@@ -1,18 +1,17 @@
-/**
- * make a list by getting all the fruit in the database
- * @param {Object} fruits 
- * @returns list of fruits to display
- */
- import { DisplayFruit } from "./DisplayFruit";
+
  import "./ListFruits.css"
  import { useNavigate } from "react-router-dom";
- import {DeletePokemon2} from "./DeleteFruit2";
+ import {DeleteFruit2} from "./DeleteFruit2";
  import {useCookies} from "react-cookie";
 import { useEffect, useState } from "react"
 
  
 
- 
+ /**
+ * make a list by getting all the fruit in the database
+ * @param {Object} fruits 
+ * @returns list of fruits to display
+ */
  function ListFruits({fruits}){
      const navigate = useNavigate();
      const [user, setUser] = useState({});
@@ -31,7 +30,7 @@ import { useEffect, useState } from "react"
                          <button onClick={() => {
                              navigate("/reviews/" + fruited.name)
                          }}class="button-style">  <img src={fruited.image } class="card-img" alt="card-img"/>  <p className="button-text">{fruited.name}</p></button>   
-                         {user.role === "admin" && <DeletePokemon2 name={fruited.name}/>}
+                         {user.role === "admin" && <DeleteFruit2 name={fruited.name}/>}
                      </div>                                        
                  ))}
              </ul>

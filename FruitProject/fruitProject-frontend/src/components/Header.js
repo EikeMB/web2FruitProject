@@ -24,7 +24,7 @@ function Header(){
 
     return(
         <div>
-            <div className="test">
+            <div className="header-container">
                 
                 <NavButton to="/" label="Home"/>
                 {user.role === "admin" && <NavButton to="/Fruit" label="Fruit"/>}

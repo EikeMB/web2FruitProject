@@ -4,6 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { LoggedInContext } from "./App";
 import "./Register.css";
 
+/**
+ * create button and text box that allows user to register
+ * if the user has enter incorrect information and there's something wrong in the database, there will be a warning of why the error occurred.
+ * @returns react element of textbox and button to register;
+ */
 function RegisterForm(){
     const nameRef = useRef(null);
     const passwordRef = useRef(null);
