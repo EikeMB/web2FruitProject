@@ -5,6 +5,11 @@ import "./NameForm.css"
 import { LoggedInContext , usernameInContext} from "./App";
 import { RegisterForm } from "./RegisterForm";
 
+/**
+ * create button and text box that allows user to get login
+ * if the user has enter incorrect information and there's something wrong in the database, the send them to an error page
+ * @returns react element of textbox for name;
+ */
 function NameForm(){
     const nameRef = useRef(null);
     const passwordRef = useRef(null);

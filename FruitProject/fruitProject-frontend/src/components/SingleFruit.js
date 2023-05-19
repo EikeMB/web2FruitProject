@@ -18,5 +18,3 @@ function SingleFruit(){
 }
 
 export { SingleFruit };
-
-//----------------------------------------------------------------review documentation
