@@ -13,6 +13,11 @@ module.exports = {
     routeRoot
 }
 
+/**
+ * A controller that adds user to the database.
+ * @param{*} request contain body with user's name, password and role
+ * @param{*} response sends us 200 when added successfully, 400 on invalid inputs, 500 on database errors
+ */
 router.post("/users", createUser);
 async function createUser(request, response){
     body = request.body;
@@ -46,6 +51,11 @@ async function createUser(request, response){
     }
 }
 
+/**
+ * A controller that finds user from the database.
+ * @param{*} request contain parameter with user's name and password
+ * @param{*} response sends us 200 when added successfully, 400 on invalid inputs, 500 on database errors
+ */
 router.get("/users/:username/:password", getUser);
 async function getUser(request, response) {
     username = request.params.username
@@ -79,6 +89,11 @@ async function getUser(request, response) {
     }
 }
 
+/**
+ * A controller that finds user from the database.
+ * @param{*} request contain parameter with user's name
+ * @param{*} response sends us 200 when added successfully, 400 on invalid inputs, 500 on database errors
+ */
 router.get("/users/:name", getUserFromSession);
 async function getUserFromSession(request, response) {
     try {
@@ -109,6 +124,11 @@ async function getUserFromSession(request, response) {
 }
 
 
+/**
+ * A controller that finds all user from the database.
+ * @param{*} request is not being use, only to call the function
+ * @param{*} response sends us 200 when added successfully, 500 on database errors
+ */
 router.get("/users", getUsers);
 async function getUsers(request, response){
     try {
@@ -132,6 +152,11 @@ async function getUsers(request, response){
     }
 }
 
+/**
+ * A controller that updates user in the database.
+ * @param{*} request contain body with old user's name, passwords, roles and the new ones
+ * @param{*} response sends us 200 when added successfully, 400 on invalid inputs, 500 on database errors
+ */
 router.put("/users", updateUser);
 async function updateUser(request, response){
     body = request.body;
@@ -165,6 +190,11 @@ async function updateUser(request, response){
     }
 }
 
+/**
+ * A controller that deletes user to the database.
+ * @param{*} request contain body with user's name and password
+ * @param{*} response sends us 200 when added successfully, 400 on invalid inputs, 500 on database errors
+ */
 router.delete("/users/:userName/:password", deleteUser);
 async function deleteUser(request, response) {
     userName = request.params.userName

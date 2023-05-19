@@ -48,6 +48,14 @@ function isValid2(name,vitamin,calories,details,image){
     throw new InvalidInputError("Invalid Input: Incorrect vitamin type");
 }
 
+/**
+ * Checks if the inputs are valid and throws an InvalidInputError if not.
+ * password must be must at least contain a special character
+ * role must either be admin or user
+ * @param {String} password 
+ * @param {String} role 
+ * @returns true if valid, throw an error otherwise
+ */
 function isValidUser(password, role){
     roles = ['admin', 'user']
     format = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/
@@ -65,6 +73,16 @@ function isValidUser(password, role){
     }
 }
 
+/**
+ * Checks if the inputs are valid and throws an InvalidInputError if not.
+ * number must not be empty
+ * content must not be empty
+ * rating must be number bewteen 1 to 5
+ * @param {String} title 
+ * @param {String} content 
+ * @param {String} rating 
+ * @returns true if valid, throw an error otherwise
+ */
 function isValidReview(title, content, rating){
     if(validator.isAscii(title)){
         if(validator.isAscii(content)){

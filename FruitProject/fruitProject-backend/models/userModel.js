@@ -61,6 +61,17 @@ async function close(){
     }
 }
 
+
+/**
+ * add a new user to the users database
+ * use validation to check if the name, password and role are valid
+ * @param {*} username 
+ * @param {*} password 
+ * @param {*} role 
+ * @returns user object
+ * @throws {DatabaseError} will throw when cannot upload user to database
+ * @throws {InvalidInputError} will throw if the user's parameters are invalid
+ */
 async function addUser(username, password, role){
     try {
         if(validateUtils.isValidUser(password, role)){
@@ -92,6 +103,13 @@ async function addUser(username, password, role){
     }
 }
 
+/**
+ * find a user by name in databse
+ * @param {string} userame 
+ * @returns user object
+ * @throws {DatabaseError} will throw when cannot try to find user in database
+ * @throws {InvalidInputError} will throw if the user's name is invalid or cannot find in database
+ */
 async function getSingleUserByName(username){
     try{
     
@@ -121,6 +139,14 @@ async function getSingleUserByName(username){
     }
 }
 
+/**
+ * find a user by name and password in databse
+ * @param {string} userame 
+ * @param {string} password 
+ * @returns user object
+ * @throws {DatabaseError} will throw when cannot try to find user in database
+ * @throws {InvalidInputError} will throw if the user's name is invalid or cannot find in database
+ */
 async function getSingleUser(username, password){
     try{
         if(validateUtils.isValidUser(password, "user")){
@@ -150,6 +176,11 @@ async function getSingleUser(username, password){
     }
 }
 
+/**
+ * get all user from the database 
+ * @returns all user in the database
+ * @throws {DatabaseError} will throw when cannot try to find all user in database
+ */
 async function getAllUsers(){
     try {
         if(client.s.hasBeenClosed){
@@ -164,6 +195,22 @@ async function getAllUsers(){
     }
 }
 
+/**
+ * update a user in the database
+ * validate if the the new given name, password and role are valid
+ * it use isValidUser to verify if user input is valid
+ * If the mondgod update return null then it assume that the old name is invalid
+ * 
+ * @param {*} oUsername old user name
+ * @param {*} oPassword old password name
+ * @param {*} oRole old role name
+ * @param {*} nUsername new user name
+ * @param {*} nPassword new password name
+ * @param {*} nRole new role name
+ * 
+ * @throws {DatabaseError} will throw when cannot try to update fruit in database
+ * @throws {InvalidInputError} will throw if the fruit's name is invalid or cannot update fruit in database because doesn't exist
+ */
 async function updateUser(oUsername, oPassword, oRole, nUsername, nPassword, nRole){
     try {
         if(validateUtils.isValidUser(oPassword, oRole) && validateUtils.isValidUser(nPassword, nRole)){
@@ -190,7 +237,13 @@ async function updateUser(oUsername, oPassword, oRole, nUsername, nPassword, nRo
     }
 }
 
-
+/**
+ * delete a user from the database
+ * @param {String} name 
+ * @param {String} password 
+ * @throws {DatabaseError} will throw when cannot try to delete fruit in database
+ * @throws {InvalidInputError} will throw if the fruit's name is invalid or cannot delete in database because doesn't exit
+ */
 async function deleteUser(username, password){
     try {
         if(client.s.hasBeenClosed){
