@@ -19,7 +19,7 @@ function Contact() {
         <div className="Contact_firstSection">
         <img src="https://blog.verisign.com/wp-content/uploads/VRSN_CompanyBrandedEmail_BlogImage8_201712-670x446.png" width="300" height="300"/>
             <div class="Contact-card">
-            <p>Email us<br/> -1970670@johnabbottcollege.com <br/> -Eike@johnabbottcollege.com</p>
+            <p>Email us<br/> -1970670@johnabbottcollege.com <br/> -2137571@johnabbottcollege.com</p>
             </div>
         </div>
         <div className="Contact_firstSection">

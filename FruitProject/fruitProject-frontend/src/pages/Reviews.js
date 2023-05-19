@@ -15,7 +15,7 @@ function Reviews(){
 
     useEffect(() =>{
         getReviews();
-    },[reviews]);
+    },[]);
 
     async function getReviews(){
         const response = await fetch("http://localhost:1339/reviews/fruits/" + fruitname.toLocaleLowerCase() ,{method: "GET", credentials: "include"})
