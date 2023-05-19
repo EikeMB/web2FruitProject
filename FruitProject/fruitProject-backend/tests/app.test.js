@@ -1,223 +1,266 @@
-const model = require("../models/fruitModelMongoDb")
+const { MongoMemoryServer } = require('mongodb-memory-server');
+const model = require('../models/reviewsModel');
 const dotenv = require('dotenv').config();
-const {MongoMemoryServer} = require('mongodb-memory-server');
-const app = require("../app"); 
+const app = require("../app");
 const supertest = require("supertest");
-const { request } = require("../app");
-const testRequest = supertest(app); 
+const testRequest = supertest(app);
 
-
-const fruitData = [
-    {name: 'Apple', vitamin: 'A', calories: 52, details: "pretty good", image: "image.png"},
-    {name: 'Orange', vitamin: 'B', calories: 52, details: "pretty good", image: "image.png"},
-    {name: 'Mango', vitamin: 'C', calories: 52, details: "pretty good", image: "image.png"},
-    {name: 'Coconut', vitamin: 'D', calories: 52, details: "pretty good", image: "image.png"},
-    {name: 'Strawberry', vitamin: 'E', calories: 52, details: "pretty good", image: "image.png"}
+const reviewData = [
+    { title: 'Avocado', content: 'Great on toast', rating: 5},
+    { title: 'Orange', content: 'Amazing juice', rating: 5},
+    { title: 'Apple', content: 'Not as good as orange', rating: 3},
+    { title: 'Coconut', content: 'Makes good cookies', rating: 4},
+    { title: 'Cherry', content: 'Sweet', rating: 5}
 ]
 
-const generateFruitData = () => fruitData.splice(Math.floor((Math.random() * fruitData.length)), 1)[0];
+const generateReview = () => {
+    const index = Math.floor(Math.random() * reviewData.length);
+    return reviewData.slice(index, index + 1)[0];
+}
 
 let mongod;
-beforeAll(async () => {
-     mongod = await MongoMemoryServer.create();
-     console.log("Mock Database started")
- });
 
-beforeEach(async () => {    
-   try {
-    const url = mongod.getUri();
-    await model.initialize("pokemon_db", true, url);
-    
-   } catch (err){ 
-       console.log(err.message)
+dbName = "reviews_db_test";
+
+beforeEach(async () => {
+    try {
+        mongod = await MongoMemoryServer.create();
+        const url = mongod.getUri();
+        await model.initialize(dbName, true, url);
+        console.log("Mock Database started");
+    } catch (error) {
+        console.log(error.message);
     }
+})
+
+jest.setTimeout(10000);
+
+afterEach(async () => {
+    await mongod.stop();
+    console.log("Mock Database stopped");
 });
 
- jest.setTimeout(10000)
+test("POST /reviews success case", async () => {
+    const {title, content, rating} = generateReview();
 
- afterEach (async () => {
-    await model.close()
-});
-
- afterAll(async () => {
-     await mongod.stop();
-     console.log("Mock Databse stopped");
- });
-
- test("GET find fruit controller, success case", async () => {
-
-     const { name, vitamin, calories, details, image } = generateFruitData();
-     await model.addFruit(name, vitamin, calories, details, image);
-
-     const testResponse = await testRequest.get('/fruits/' + name);
-     expect(testResponse.status).toBe(200);
-});
-
-test("GET find fruit controller, 400 error case", async () => {
-
-    let nonExsistingName = "badName";
-
-    const testResponse = await testRequest.get('/fruits/' + nonExsistingName);
-    expect(testResponse.status).toBe(400);
-});
-
-test("GET find fruit controller, 500 error case", async () => {
-
-    await model.close()
-    let fruitName = "Apple";
-
-    const testResponse = await testRequest.get('/fruits/' + fruitName);
-    expect(testResponse.status).toBe(500);
-});
-
-test("POST create fruit controller, success case", async () => {
-
-    const { name, vitamin, calories, details, image } = generateFruitData();
-
-    const testResponse = await testRequest.post('/fruits').send({
-		fruitName: name,
-		fruitVitamin: vitamin,
-        fruitCalories: calories,
-        fruitDetails: details,
-        fruitImage: image
+    const testResponse = await testRequest.post('/reviews').send({
+        title: title,
+        content: content,
+        rating: rating
     })
 
     expect(testResponse.status).toBe(200);
-});
+    collection = await model.getCollection();
+    const cursor = collection.find();
+    const results = await cursor.toArray();
 
-test("POST create fruit controller, 400 error case", async () => {
-    const testResponse = await testRequest.post('/fruits').send({
-		fruitName: "",
-		fruitVitamin: "A",
-        fruitCalories: 52,
-        fruitDetails: "pretty good",
-        fruitImage: "image.png"
+    expect(Array.isArray(results)).toBe(true);
+    expect(results.length).toBe(1);
+    expect(results[0].title.toLowerCase()).toBe(title.toLocaleLowerCase());
+    expect(results[0].content.toLowerCase()).toBe(content.toLocaleLowerCase());
+    expect(results[0].rating).toBe(rating);
+})
+
+test("POST /reviews client side failure", async() => {
+    const {title, content, rating} = generateReview();
+
+    const testResponse = await testRequest.post("/reviews").send({
+        title: title,
+        content: content,
+        rating: 10
     })
 
     expect(testResponse.status).toBe(400);
+})
 
-});
+test("POST /reviews server side failure", async() => {
+    const {title, content, rating} = generateReview();
 
-test("POST create fruit controller, 500 error case", async () => {
-    await model.close()
-    const testResponse = await testRequest.post('/fruits').send({
-		fruitName: "Apple",
-		fruitVitamin: "A",
-        fruitCalories: 52,
-        fruitDetails: "pretty good",
-        fruitImage: "image.png"
+    model.close();
+    const testResponse = await testRequest.post("/reviews").send({
+        title: title,
+        content: content,
+        rating: rating
     })
 
     expect(testResponse.status).toBe(500);
+})
 
-});
+test("GET /reviews/:title successful find", async() => {
+    const {title, content, rating} = generateReview();
+    generated = {title: title, content: content, rating: rating};
+    collection = await model.getCollection();
+    await collection.insertOne(generated);
 
-test("GET findAll fruit controller, success case", async () => {
-
-    const { name, vitamin, calories, details, image } = generateFruitData();
-    await model.addFruit(name, vitamin, calories, details, image);
-
-    const testResponse = await testRequest.get('/fruits');
+    const testResponse = await testRequest.get("/reviews/" + title)
     expect(testResponse.status).toBe(200);
-});
 
 
-test("GET findAll fruit controller, 500 error case", async () => {
+})
 
-   await model.close()
+test("GET /reviews/:title unsuccessful find client side failure", async() => {
+    const {title, content, rating} = generateReview();
+    generated = {title: title, content: content, rating: rating};
+    collection = await model.getCollection();
+    await collection.insertOne(generated);
 
-   const testResponse = await testRequest.get('/fruits');
-   expect(testResponse.status).toBe(500);
-});
-
-test("DELETE delete fruit controller, success case", async () => {
-
-    const { name, vitamin, calories, details, image } = generateFruitData();
-    await model.addFruit(name, vitamin, calories, details, image);
-
-    const testResponse = await testRequest.delete('/fruits/' + name);
-    expect(testResponse.status).toBe(200);
-});
-
-test("DELETE delete fruit controller, 400 error case", async () => {
-
-    let nonExsistingName = "badName";
-
-    const testResponse = await testRequest.delete('/fruits/' + nonExsistingName);
-    expect(testResponse.status).toBe(400);
-});
-
-test("DELETE delete fruit controller, 500 error case", async () => {
-
-    await model.close()
-    let fruitName = "Apple";
-
-    const testResponse = await testRequest.delete('/fruits/' + fruitName);
-    expect(testResponse.status).toBe(500);
-});
-
-test("PUT update fruit controller, success case", async () => {
-
-    const { name, vitamin, calories, details, image } = generateFruitData();
-    await model.addFruit(name, vitamin, calories, details, image);
-
-    const testResponse = await testRequest.put('/fruits').send({
-        oldFruitName: name,
-		newFruitName: "NewFruitName",
-		fruitVitamin: vitamin,
-        fruitCalories: calories,
-        fruitDetails: details,
-        fruitImage: image
-    })
-
-    expect(testResponse.status).toBe(200);
-});
-
-test("PUT /update 400 error case", async () => {
-
-   let name = "Apple";
-   let vitamin = "A";
-   let calories = 52;
-   let details = "pretty good";
-   let image = "image.png";
-
-    const testResponse = await testRequest.put('/fruits').send({
-        oldFruitName: name,
-		newFruitName: "",
-		fruitVitamin: vitamin,
-        fruitCalories: calories,
-        fruitDetails: details,
-        fruitImage: image
-    })
-
+    const testResponse = await testRequest.get("/reviews/title")
     expect(testResponse.status).toBe(400);
 
-});
 
-test("PUT update fruit controller, 500 error case", async () => {
-    await model.close()
+})
 
-    let name = "Apple";
-    let vitamin = "A";
-    let calories = 52;
-    let details = "pretty good";
-   let image = "image.png";
- 
-     const testResponse = await testRequest.put('/fruits').send({
-         oldFruitName: name,
-         newFruitName: "Orange",
-         fruitVitamin: vitamin,
-         fruitCalories: calories,
-         fruitDetails: details,
-        fruitImage: image
-     })
+test("GET /reviews/:title unsuccessful find server side failure", async() => {
+    const {title, content, rating} = generateReview();
+    generated = {title: title, content: content, rating: rating};
+    collection = await model.getCollection();
+    await collection.insertOne(generated);
 
+    model.close();
+    const testResponse = await testRequest.get("/reviews/title")
     expect(testResponse.status).toBe(500);
 
-});
 
-    
+})
+
+test("GET /reviews successful find all", async() => {
+    const {title, content, rating} = generateReview();
+    generated = {title: title, content: content, rating: rating};
+    collection = await model.getCollection();
+    await collection.insertOne(generated);
+    generated = generateReview();
+    await collection.insertOne({title: generated.title, content: generated.content, rating: generated.rating});
+    generated = generateReview();
+    await collection.insertOne({title: generated.title, content: generated.content, rating: generated.rating});
+    generated = generateReview();
+    await collection.insertOne({title: generated.title, content: generated.content, rating: generated.rating});
+    generated = generateReview();
+    await collection.insertOne({title: generated.title, content: generated.content, rating: generated.rating});
+    result = await model.getAllReviews();
+
+    const testResponse = await testRequest.get("/reviews")
+    expect(testResponse.status).toBe(200);
 
 
+})
+
+test("GET /reviews unsuccessful find all server side failure", async() => {
+    const {title, content, rating} = generateReview();
+    generated = {title: title, content: content, rating: rating};
+    collection = await model.getCollection();
+    await collection.insertOne(generated);
+    generated = generateReview();
+    await collection.insertOne({title: generated.title, content: generated.content, rating: generated.rating});
+    generated = generateReview();
+    await collection.insertOne({title: generated.title, content: generated.content, rating: generated.rating});
+    generated = generateReview();
+    await collection.insertOne({title: generated.title, content: generated.content, rating: generated.rating});
+    generated = generateReview();
+    await collection.insertOne({title: generated.title, content: generated.content, rating: generated.rating});
+    result = await model.getAllReviews();
+
+    model.close();
+    const testResponse = await testRequest.get("/reviews")
+    expect(testResponse.status).toBe(500);
 
 
+})
+
+test("PUT /reviews successful update", async () => {
+    const {title, content, rating} = generateReview();
+    generated = {title: title, content: content, rating: rating};
+    collection = await model.getCollection();
+    await collection.insertOne(generated);
+    newGenerated = {title: title, content: content, rating: rating};
+    newGenerated = generateReview();
+
+    const testResponse = await testRequest.put("/reviews").send({
+        "oldTitle":generated.title,
+        "oldContent":generated.content,
+        "oldRating":generated.rating,
+        "newTitle":newGenerated.title,
+        "newContent":newGenerated.content,
+        "newRating":newGenerated.rating
+    })
+    expect(testResponse.status).toBe(200);
+    collection = await model.getCollection();
+    const cursor = collection.find();
+    const results = await cursor.toArray();
+
+    expect(Array.isArray(results)).toBe(true);
+    expect(results.length).toBe(1);
+    expect(results[0].title.toLowerCase()).toBe(newGenerated.title.toLocaleLowerCase());
+    expect(results[0].content.toLowerCase()).toBe(newGenerated.content.toLocaleLowerCase());
+    expect(results[0].rating).toBe(newGenerated.rating);
+})
+
+test("PUT /reviews unsuccessful update client side failure", async () => {
+    const {title, content, rating} = generateReview();
+    generated = {title: title, content: content, rating: rating};
+    collection = await model.getCollection();
+    await collection.insertOne(generated);
+    newGenerated = {title: title, content: content, rating: rating};
+    newGenerated = generateReview();
+
+    const testResponse = await testRequest.put("/reviews").send({
+        "oldTitle":"title",
+        "oldContent":generated.content,
+        "oldRating":generated.rating,
+        "newTitle":newGenerated.title,
+        "newContent":newGenerated.content,
+        "newRating":newGenerated.rating
+    })
+    expect(testResponse.status).toBe(400);
+})
+
+test("PUT /reviews unsuccessful update server side failure", async () => {
+    const {title, content, rating} = generateReview();
+    generated = {title: title, content: content, rating: rating};
+    collection = await model.getCollection();
+    await collection.insertOne(generated);
+    newGenerated = {title: title, content: content, rating: rating};
+    newGenerated = generateReview();
+    model.close();
+    const testResponse = await testRequest.put("/reviews").send({
+        "oldTitle":"title",
+        "oldContent":generated.content,
+        "oldRating":generated.rating,
+        "newTitle":newGenerated.title,
+        "newContent":newGenerated.content,
+        "newRating":newGenerated.rating
+    })
+    expect(testResponse.status).toBe(500);
+})
+
+test("DELETE /reviews/:title successful delete", async () => {
+    const {title, content, rating} = generateReview();
+    generated = {title: title, content: content, rating: rating};
+    collection = await model.getCollection();
+    await collection.insertOne(generated);
+
+    const testResponse = await testRequest.delete("/reviews/" + title);
+
+    expect(testResponse.status).toBe(200);
+})
+
+test("DELETE /reviews/:title unsuccessful delete client side failure", async () => {
+    const {title, content, rating} = generateReview();
+    generated = {title: title, content: content, rating: rating};
+    collection = await model.getCollection();
+    await collection.insertOne(generated);
+
+    const testResponse = await testRequest.delete("/reviews/title");
+
+    expect(testResponse.status).toBe(400);
+})
+
+test("DELETE /reviews/:title unsuccessful delete server side failure", async () => {
+    const {title, content, rating} = generateReview();
+    generated = {title: title, content: content, rating: rating};
+    collection = await model.getCollection();
+    await collection.insertOne(generated);
+    model.close();
+    const testResponse = await testRequest.delete("/reviews/" + title);
+
+    expect(testResponse.status).toBe(500);
+})
