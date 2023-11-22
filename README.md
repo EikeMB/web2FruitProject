@@ -7,3 +7,10 @@ This project was a school project that I did with another person for a web progr
 
 ### Technologies used
 This web app was made using node.js for the server side, mongoDb for the database, and React for the frontend.
+
+
+### How to use
+1. Clone the repo
+2. Run the node.js server
+3. Run the react project
+4. Open the site
